@@ -131,26 +131,6 @@ if [ $STATUS -ne 0 ] ; then
 fi
 echo "good"
 
-## Retrieve Contest Version of Gym ##
-printf '%s' "Cloning contest repo..."
-OUTPUT=$(git clone -q --recursive https://github.com/openai/retro-contest.git)
-STATUS=$?
-if [ $STATUS -ne 0 ] ; then
-		printf '%s\n%s\n' "ERROR: problem cloning contest repository. Propagating exit status." "$OUTPUT" 1>&2
-		exit $STATUS
-fi
-echo "good"
-
-## Pip Install Contest Version of Gym ##
-printf '%s' "Installing contest pip package..."
-OUTPUT=$("$PIP" install -e 'retro-contest/support[docker]')
-STATUS=$?
-if [ $STATUS -ne 0 ] ; then
-		printf '%s\n%s\n' "ERROR: problem installing contest Gym with pip. Propagating exit status." "$OUTPUT" 1>&2
-		exit $STATUS
-fi
-echo "good"
-
 ## Pip Install Non-Local Packages ##
 for PKG in $REQUIRED_PIP_PKGS ; do
 		printf '%s' "Installing pip pkg $PKG..."
@@ -162,6 +142,27 @@ for PKG in $REQUIRED_PIP_PKGS ; do
 		fi
 		echo "good"
 done
+
+## Install retro-contest ##
+### Retrieve retro-contest ###
+printf '%s' "Cloning contest repo..."
+OUTPUT=$(git clone -q --recursive https://github.com/openai/retro-contest.git)
+STATUS=$?
+if [ $STATUS -ne 0 ] ; then
+		printf '%s\n%s\n' "ERROR: problem cloning contest repository. Propagating exit status." "$OUTPUT" 1>&2
+		exit $STATUS
+fi
+echo "good"
+
+### Pip Install retro-contest ###
+printf '%s' "Installing retro-contest pip package..."
+OUTPUT=$("$PIP" install -e retro-contest/support[docker,rest,retro])
+STATUS=$?
+if [ $STATUS -ne 0 ] ; then
+		printf '%s\n%s\n' "ERROR: problem installing retro-contest pip package. Propagating exit status." "$OUTPUT" 1>&2
+		exit $STATUS
+fi
+echo "good"
 
 
 # Install ROMs into Retro Gym #
