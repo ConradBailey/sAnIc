@@ -1,5 +1,19 @@
 #!/bin/sh
 
+safe_run() {
+		DESCRIPTION="$1"
+		COMMAND="$2"
+		ERR_MSG="$3"
+		printf '%s' "$DESCRIPTION..."
+		OUTPUT=$($COMMAND 2>&1)
+		STATUS=$?
+		if [ $STATUS -ne 0 ] ; then
+				printf '\n%s\n%s\n' "ERROR: $ERR_MSG Propagating exit status." "$OUTPUT" 1>&2
+				exit $STATUS
+		fi
+		echo "good"
+}
+
 PROG_NAME=$(basename "$0")
 USAGE="Usage: $PROG_NAME [ROM Directory]"
 
@@ -12,30 +26,28 @@ REQUIRED_PIP_PKGS="https://storage.googleapis.com/gym-retro/builds/gym_retro-0.5
 REQUIRED_GAMES="SonicTheHedgehog-Genesis SonicTheHedgehog2-Genesis SonicAndKnuckles3-Genesis"
 
 # Validate Input #
-printf '%s' "Testing dir argument..."
 if [ $# -ne 1 ] ; then
 		printf '\n%s\n%s\n' "ERROR: Invalid number of arguments" "$USAGE" 1>&2
 		exit 1
 fi
-echo "good"
 
 ROM_DIR="$1"
 
-printf '%s' "Testing dir existence..."
+printf '%s' "Testing '$ROM_DIR' existence..."
 if [ ! -e "$ROM_DIR" ] ; then
 		printf '\n%s\n' "ERROR: path '$ROM_DIR' does not exist" 1>&2
 		exit 1
 fi
 echo "good"
 
-printf '%s' "Testing dir directory..."
+printf '%s' "Testing '$ROM_DIR' directory..."
 if [ ! -d "$ROM_DIR" ] ; then
 		printf '\n%s\n' "ERROR: path '$ROM_DIR' is not a directory" 1>&2
 		exit 1
 fi
 echo "good"
 
-printf '%s' "Testing dir permissions..."
+printf '%s' "Testing '$ROM_DIR' permissions..."
 if [ ! -r "$ROM_DIR" ] || [ ! -x "$ROM_DIR" ] ; then
 		printf '\n%s\n' "ERROR: path '$ROM_DIR' does not have correct permissions" 1>&2
 		exit 1
@@ -113,14 +125,17 @@ fi
 echo "good"
 
 # Setup Virtual Environment #
-printf '%s' "Making venv..."
-OUTPUT=$(virtualenv -p"$PYTHON" 2>&1 venv)
-STATUS=$?
-if [ $STATUS -ne 0 ] ; then
-		printf '\n%s\n%s\n' "ERROR: Problem creating virtual environment with virtualenv" "$OUTPUT" 1>&2
-		exit $STATUS
+if [ -e 'venv' ] ; then
+		read -p "'venv' exists. Would you like to remove and reinstall 'venv' (y/n)? " ANSWER
+		case "$ANSWER" in
+				'y') safe_run "Removing pre-existing 'venv'" "rm -rf venv" "problem removing existing 'venv'";;
+				*) printf '%s\n' "Using 'venv' as is"
+		esac
 fi
-echo "good"
+
+if [ ! -e 'venv' ] ; then
+		safe_run "Making venv" "virtualenv -p$PYTHON venv" "Problem creating virtual environment with virtualenv"
+fi
 
 printf '%s' "Activating venv..."
 . venv/bin/activate
@@ -133,42 +148,27 @@ echo "good"
 
 ## Pip Install Non-Local Packages ##
 for PKG in $REQUIRED_PIP_PKGS ; do
-		printf '%s' "Installing pip pkg $PKG..."
-		OUTPUT=$("$PIP" install "$PKG" 2>&1)
-		STATUS=$?
-		if [ $STATUS -ne 0 ] ; then
-				printf '\n%s\n%s\n' "ERROR: Something went wrong while installing package '$PKG' in virtual environment. Propagating exit status." "$OUTPUT" 1>&2
-				exit $STATUS
-		fi
-		echo "good"
+		safe_run "Installing pip pkg $PKG" "$PIP install $PKG" "Something went wrong while installing package '$PKG' in virtual environment. Propagating exit status."
 done
 
 ## Install retro-contest ##
-### Retrieve retro-contest ###
-printf '%s' "Cloning contest repo..."
-OUTPUT=$(git clone -q --recursive https://github.com/openai/retro-contest.git)
-STATUS=$?
-if [ $STATUS -ne 0 ] ; then
-		printf '%s\n%s\n' "ERROR: problem cloning contest repository. Propagating exit status." "$OUTPUT" 1>&2
-		exit $STATUS
+if [ -e "retro-contest" ] ; then
+		### Update repo ###
+		if [ ! -d "retro-contest/.git" ] ; then
+				printf '%s\n' 'ERROR: "retro-contest" exists, but is not a git repo.'
+				exit 1
+		fi
+		safe_run 'Directory "retro-contest" exists and is a git repository. Pulling updates' "cd retro-contest && git pull 2>&1" "problem pulling updates in 'retro-contest'."
+else
+		### Retrieve retro-contest ###
+		safe_run "Cloning contest repo" "git clone -q --recursive https://github.com/openai/retro-contest.git" "problem cloning contest repository."
 fi
-echo "good"
 
 ### Pip Install retro-contest ###
-printf '%s' "Installing retro-contest pip package..."
-OUTPUT=$("$PIP" install -e retro-contest/support[docker,rest,retro])
-STATUS=$?
-if [ $STATUS -ne 0 ] ; then
-		printf '%s\n%s\n' "ERROR: problem installing retro-contest pip package. Propagating exit status." "$OUTPUT" 1>&2
-		exit $STATUS
-fi
-echo "good"
-
+safe_run "Installing retro-contest pip package" "$PIP install -e retro-contest/support[docker,rest,retro]" "problem installing retro-contest pip package."
 
 # Install ROMs into Retro Gym #
-printf '%s' "Importing games..."
-OUTPUT=$("$PYTHON" -m retro.import "$ROM_DIR")
-echo "good"
+safe_run "Importing games" "$PYTHON -m retro.import $ROM_DIR" "problem importing games from $ROM_DIR"
 
 for GAME in $REQUIRED_GAMES ; do
 		printf '%s' "Finding game $GAME..."
