@@ -1,5 +1,20 @@
 #!/bin/sh
 
+safe_run() {
+		DESCRIPTION="$1"
+		COMMAND="$2"
+		ERR_MSG="$3"
+		printf '%s' "$DESCRIPTION..."
+		OUTPUT=$($COMMAND 2>&1)
+		STATUS=$?
+		if [ $STATUS -ne 0 ] ; then
+				printf '\n%s\n%s\n' "ERROR: $ERR_MSG Propagating exit status." "$OUTPUT" 1>&2
+				exit $STATUS
+		fi
+		echo "good"
+}
+
+
 get_abs_location() {
 		cd "$(dirname "$1")" || exit 1
 		pwd
@@ -44,7 +59,8 @@ for FILENAME in $REQUIRED_FILES ; do
 				exit 1
 		fi
 done
-## Import Sources ##
+
+# Import Sources #
 . "$CREDENTIALS_FILE"
 . "$VENV_ACTIVATION_FILE"
 
@@ -68,46 +84,13 @@ done
 
 # Docker Operations #
 DOCKER_TAG="$TEAM_MEMBER_NAME/$AGENT_NAME:v$AGENT_VERSION"
-## Build ##
-printf '%s' "Docker: Building image..."
-OUTPUT=$(docker build -f "$DOCKER_FILE" -t "$DOCKER_TAG" . 2>&1)
-STATUS=$?
-if [ $STATUS -ne 0 ] ; then
-		printf '\n%s\n%s\n' "ERROR: Problem building Docker image. Propagating exit status." "$OUTPUT" 1>&2
-		exit $STATUS
-fi
-printf '%s\n' "good"
+safe_run "Docker: Building image" "docker build -f $DOCKER_FILE -t $DOCKER_TAG ." "Problem building Docker image."
 
 
 # Server Operations #
-## Login ##
-printf '%s' "Server: Logging in..."
-OUTPUT=$(retro-contest login --server 'https://contest.openai.com' --email "$TEAM_EMAIL_ADDR" --password "$TEAM_PASSWORD" 2>&1)
-STATUS=$?
-if [ $STATUS -ne 0 ] ; then
-		printf '\n%s\n%s\n' "ERROR: Problem logging into server. Propagating exit status." "$OUTPUT" 1>&2
-		exit $STATUS
-fi
-printf '%s\n' "good"
+safe_run "Server: Logging in" "retro-contest login --server 'https://contest.openai.com' --email $TEAM_EMAIL_ADDR --password $TEAM_PASSWORD" "Problem logging into server."
+safe_run "Server: Submitting job" "retro-contest job submit -t $DOCKER_TAG" "Problem submitting job for '$AGENT_NAME:$AGENT_VERSION'."
+safe_run "Server: Logging out" "retro-contest logout" "Problem logging out of server."
 
-## Submit ##
-printf '%s' "Server: Submitting job..."
-OUTPUT=$(retro-contest job submit -t "$DOCKER_TAG" 2>&1)
-STATUS=$?
-if [ $STATUS -ne 0 ] ; then
-		printf '\n%s\n%s\n' "ERROR: Problem submitting job for '$AGENT_NAME:$AGENT_VERSION'. Propagating exit status." "$OUTPUT" 1>&2
-		exit $STATUS
-fi
-printf '%s\n' "good"
-
-## Logout ##
-printf '%s' "Server: Logging out..."
-OUTPUT=$(retro-contest logout 2>&1)
-STATUS=$?
-if [ $STATUS -ne 0 ] ; then
-		printf '\n%s\n%s\n' "ERROR: Problem logging out of server. Propagating exit status." "$OUTPUT" 1>&2
-		exit $STATUS
-fi
-printf '%s\n' "good"
 
 exit 0

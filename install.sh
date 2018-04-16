@@ -22,7 +22,14 @@ PYTHON=python3
 PIP=pip3
 
 REQUIRED_BINS="$PIP $PYTHON grep virtualenv git"
-REQUIRED_PIP_PKGS="https://storage.googleapis.com/gym-retro/builds/gym_retro-0.5.3-cp36-cp36m-linux_x86_64.whl"
+REQUIRED_PIP_PKGS="https://storage.googleapis.com/gym-retro/builds/gym_retro-0.5.3-cp36-cp36m-linux_x86_64.whl \
+                   ipykernel \
+									 numpy \
+									 scipy \
+									 tensorflow \
+									 tflearn \
+									"
+
 REQUIRED_GAMES="SonicTheHedgehog-Genesis SonicTheHedgehog2-Genesis SonicAndKnuckles3-Genesis"
 
 # Validate Input #
