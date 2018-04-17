@@ -27,7 +27,9 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 * [Contribute to the Project](https://gitlab.com/ConradBailey/sAnIc#contribute-to-the-project)
 * [Work on the Website](https://gitlab.com/ConradBailey/sAnIc#install-the-virtual-environment)
 * [Start a Jupyter Notebook in the Virtualenv](https://gitlab.com/ConradBailey/sAnIc#start-a-jupyter-notebook-in-the-virtualenv)
+* [Evaluate an Agent Locally](https://gitlab.com/ConradBailey/sAnIc#evaluate-an-agent-locally)
 * [Submit a Job](https://gitlab.com/ConradBailey/sAnIc#submit-a-job)
+* [Convert `.bk2` Files to `.mp4` Videos](https://gitlab.com/ConradBailey/sAnIc#convert-.bk2-files-to-.mp4-videos)
 
 ### Assumptions ###
 * You're keeping everything for the project in a directory called
@@ -110,7 +112,7 @@ creating the kernel it can be reused at will.
 0. Install Jupyter for your distribution
 1. Activate the virtualenv (see step
    3
-   [here](https://gitlab.com/ConradBailey/sAnIc#install-the-virtual-environment).
+   [here](https://gitlab.com/ConradBailey/sAnIc#install-the-virtual-environment)).
 2. Run `$ ipython kernel install --user --name=sAnIc`. This will create
    a kernel called `sAnIc` that we will use to make a notebook in the
    next step.
@@ -125,6 +127,56 @@ creating the kernel it can be reused at will.
    resources.
 5. Use the notebook!
 
+### Evaluate an Agent Locally ###
+This process will mimic the remote environment used for official
+scoring when submitting a job.  It is important to do this
+before
+[submitting the agent as a job](https://gitlab.com/ConradBailey/sAnIc#submit-a-job) so
+that you don't waste time finding runtime errors after uploading to
+the server.
+1. Activate your virtual environment (see step
+   3
+   [here](https://gitlab.com/ConradBailey/sAnIc#install-the-virtual-environment)).
+2. Acquire a credentials file from Conrad. This contains sensitive
+   passwords and stuff. **DO NOT COMMIT/PUSH THIS FILE!!** If you keep
+   the name `retro_contest_credentials.dontcommit` then it will be
+   safely ignored thanks to `.gitignore`. If you guys are paranoid,
+   then we can work out some encryption, but for now just be careful.
+3. Write a Docker file for your agent. See examples and Docker
+   documentation. They're really not bad; waaayyy easier than
+   makefiles.
+4. Run `$ local_eval.sh [Docker File] [Agent Name] [Agent Version] [Game Name] [State Name] [Time Limit (secs)]`.
+   This will build a docker image tagged as
+   `$TEAM_MEMBER_NAME/$AGENT_NAME:v$AGENT_VERSION`, pull the
+   `retro-env` image, tag `retro-env` as `remote-env`, and run a local
+   evaluation with `$ retro-contest run` using the new docker image
+   for the agent and the specified game and state for the
+   environment. The time limit determines how long the agent is
+   evaluated for in wall-clock time; i.e. it will run as many trials
+   of that game and state as it can before the allotted time runs out.
+5. This will output a folder named `results` in the working
+   directory. In this directory there are useful files:
+   + `agent_stderr.txt` and `agent_stdout.txt`: This is where you'll
+     find any debugging output or errors produced by your agent.
+   + `remote-stderr.txt` and `remote-stdout.txt`: This is where you'll
+     find output and errors from the remote environment provided by
+     the retro-contest people.
+   + `log.csv`: This is just a recording of the time elapsed for every
+     1000 steps. It should give you an idea of how fast your
+     agent is running.
+   + `monitor.csv`: Every row represents a trial the evaluation
+     performed. The column `r` is the _reward_ for that trial, `l` is
+     the number of steps it took to complete the trial, and `t` is the
+     wall-clock time it took to complete the trial.
+   + `bk2` is a directory containing visual information for each trial
+     that can
+     be
+     [converted into `.mp4` videos](https://gitlab.com/ConradBailey/sAnIc#convert-.bk2-files-to-.mp4-videos). Due
+     to the nature of Docker, this file is recursively owned by
+     `root`, so manipulating or removing this file will require root
+     permissions, but there is nothing inherently root-worthy in this
+     directory.
+
 ### Submit a Job ###
 Submitting a job means packaging some agent up in a Docker container
 and asking the retro-contest server to officially evaluate it for the
@@ -133,21 +185,36 @@ evaluations. Furthermore, we can only run one of these at a time, so
 communicate your intentions to the group for scheduling purposes. If
 your agent beats our high score, then its performance becomes our new
 high score!
-0. Acquire a credentials file from Conrad. This contains sensitive
-   passwords and stuff. **DO NOT COMMIT/PUSH THIS FILE!!** If you keep
-   the name `retro_contest_credentials.dontcommit` then it will be
-   safely ignored thanks to `.gitignore`. If you guys are paranoid,
-   then we can work out some encryption, but for now just be careful.
-1. Write a Docker file. See examples and Docker documentation. They're
-   really not bad; waaayyy easier than makefiles.
-2. Evaluate your agent locally. This ensures there are no runtime bugs
-   and you don't waste resources uploading doomed agents to be
-   evaluated. I'm still working on automating this part, but there
-   will be an _Evaluate Locally_ section here soon.
-3. Run `$ ./submit_agent.sh docker_file agent_name agent_version`
+1. [Evaluate your agent locally](https://gitlab.com/ConradBailey/sAnIc#evaluate-an-agent-locally). This
+   ensures there are no runtime bugs and you don't waste resources
+   uploading doomed agents to be evaluated. I'm still working on
+   automating this part, but there will be an _Evaluate Locally_
+   section here soon.
+2. Run `$ ./submit_agent.sh docker_file agent_name agent_version`
    where `agent_name` should describe the implementation and
    `agent_version` allows you to iterate on that implementation. This
    script will build the Docker container for your agent, tag it as
    `$TEAM_MEMBER_NAME/$AGENT_NAME:v$AGENT_VERSION`, and submit it for
    evaluation. You shouldn't have to worry about these details, but
    this info is helpful if you're managing your Docker images.
+3. You can check or change the status of your job at
+   the [jobs page](https://contest.openai.com/user/job).
+
+### Convert `.bk2` Files to `.mp4` Videos ###
+These steps require the `ffmpeg` application with `x264` support.
+1. Make sure the `.bk2` file is **not** owned by `root`. This can be
+   done to
+   `local_eval.sh`
+   [produced results](https://gitlab.com/ConradBailey/sAnIc#evaluate-an-agent-locally) with
+   `$ sudo chown -R username:username results/bk2` (this is an
+   example, your invocation may vary).
+2. Activate your virtual environment (see step
+   3
+   [here](https://gitlab.com/ConradBailey/sAnIc#install-the-virtual-environment)).
+3. To **store** the output use
+   `$ python3 -m retro.scripts.playback_movie somefile.bk2`.
+   This will produce `somefile.mp4` in the working directory. To
+   **immediately view** the output use
+   `python3 -m retro.scripts.playback_movie -v viewer` where
+   `viewer` is the name of the application you'd like to use to view
+   the movie (e.g. `vlc`, `mplayer`, etc).
