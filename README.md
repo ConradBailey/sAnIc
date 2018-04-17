@@ -30,6 +30,7 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 * [Evaluate an Agent Locally](https://gitlab.com/ConradBailey/sAnIc#evaluate-an-agent-locally)
 * [Submit a Job](https://gitlab.com/ConradBailey/sAnIc#submit-a-job)
 * [Convert `.bk2` Files to `.mp4` Videos](https://gitlab.com/ConradBailey/sAnIc#convert-.bk2-files-to-.mp4-videos)
+* [Resources](https://gitlab.com/ConradBailey/sAnIc#resources)
 
 ### Assumptions ###
 * You're keeping everything for the project in a directory called
@@ -218,3 +219,46 @@ These steps require the `ffmpeg` application with `x264` support.
    `python3 -m retro.scripts.playback_movie -v viewer` where
    `viewer` is the name of the application you'd like to use to view
    the movie (e.g. `vlc`, `mplayer`, etc).
+
+### Resources ###
+#### Contest Websites ####
++ [Poster/Front Page](https://contest.openai.com/): The basics of the contest.
++ [Blog Post](https://blog.openai.com/retro-contest/): Some details
+  about the work they've already put in and their hopes for the
+  contest.
++ [Details Page](https://contest.openai.com/details): Digs into the
+  meat of the contest and the tools that they provide.
++ [Leaderboard](https://contest.openai.com/leaderboard): The current,
+  live contest results.
++ [Benchmark Whitepaper](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/retro-contest/gotta_learn_fast_report.pdf):
+  This is an academic paper describing the benchmark they use for
+  measuring performance.
++ [Discord Server](https://discord.gg/chU7Zwa): Go here to reach out
+  to the community and admins for questions or the Troubleshooting
+  channel. In my experience they're very helpful, as long as it's not
+  the weekend.
+
+#### Repositories ####
+**NOTE**: Visit these links and peruse the READMEs; they often have
+very valuable information.
++ [Gym](https://github.com/openai/gym): A toolkit for developing and
+  comparing reinforcement learning algorithms. This is the kernel of
+  the contest.
++ [Gym Retro](https://github.com/openai/retro): The foundation of the
+  contest. This turns emulators into Gym environments. It's what
+  allows us to interact with the Sega Genesis video games.
++ [Retro-Contest](https://github.com/openai/retro-contest):
+  Contest-specific wrappers for Gym-Retro and various support tools.
++ [Retro-Baselines](https://github.com/openai/retro-baselines):
+  Contest entry examples that the OpenAI team has pre-built. You can
+  try these out for yourself with a little modification.
+
+#### Learning ####
++ [Neural Networks and Deep Learning](http://neuralnetworksanddeeplearning.com/):
+  This online "book" gives the basics of neural networks. It's a
+  pretty quick, approachable read.
++ [MIT 6.S094: Deep Learning for Self-Driving Cars](https://selfdrivingcars.mit.edu/):
+  Check out the _Schedule of Lectures and Talks_ section. Most
+  lectures begin with an hour of machine learning theory, and then end
+  with applications specific to autonomous driving. Also check out
+  their [resources](https://selfdrivingcars.mit.edu/resources/) page.
