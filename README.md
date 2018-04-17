@@ -5,7 +5,7 @@ the [OpenAI Retro Contest](https://contest.openai.com/). If you're a
 team member looking for information about working on the project,
 visit
 the
-[How To](https://gitlab.com/ConradBailey/sAnIc#how-to-do-stuff-relevant-to-this-project) section. If
+[How To](https://gitlab.com/sAnIc-ND/sAnIc#how-to-do-stuff-relevant-to-this-project) section. If
 you are a visitor looking for information about our work, visit
 the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 
@@ -22,15 +22,15 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 
 ## How To Do Stuff Relevant To This Project ##
 ### Table of Contents ###
-* [Assumptions](https://gitlab.com/ConradBailey/sAnIc#assumptions)
-* [Install the Virtual Environment](https://gitlab.com/ConradBailey/sAnIc#install-the-virtual-environment)
-* [Contribute to the Project](https://gitlab.com/ConradBailey/sAnIc#contribute-to-the-project)
-* [Work on the Website](https://gitlab.com/ConradBailey/sAnIc#install-the-virtual-environment)
-* [Start a Jupyter Notebook in the Virtualenv](https://gitlab.com/ConradBailey/sAnIc#start-a-jupyter-notebook-in-the-virtualenv)
-* [Evaluate an Agent Locally](https://gitlab.com/ConradBailey/sAnIc#evaluate-an-agent-locally)
-* [Submit a Job](https://gitlab.com/ConradBailey/sAnIc#submit-a-job)
-* [Convert `.bk2` Files to `.mp4` Videos](https://gitlab.com/ConradBailey/sAnIc#convert-.bk2-files-to-.mp4-videos)
-* [Resources](https://gitlab.com/ConradBailey/sAnIc#resources)
+* [Assumptions](https://gitlab.com/sAnIc-ND/sAnIc#assumptions)
+* [Install the Virtual Environment](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)
+* [Contribute to the Project](https://gitlab.com/sAnIc-ND/sAnIc#contribute-to-the-project)
+* [Work on the Website](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)
+* [Start a Jupyter Notebook in the Virtualenv](https://gitlab.com/sAnIc-ND/sAnIc#start-a-jupyter-notebook-in-the-virtualenv)
+* [Evaluate an Agent Locally](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)
+* [Submit a Job](https://gitlab.com/sAnIc-ND/sAnIc#submit-a-job)
+* [Convert `.bk2` Files to `.mp4` Videos](https://gitlab.com/sAnIc-ND/sAnIc#convert-.bk2-files-to-.mp4-videos)
+* [Resources](https://gitlab.com/sAnIc-ND/sAnIc#resources)
 
 ### Assumptions ###
 * You're keeping everything for the project in a directory called
@@ -78,7 +78,7 @@ contribute work instead of straight pushes to the repo.
    do your work in.
 3. Do whatever work you want to do. Make an agent with a new
    algorithm. Do new visualizations or analytics for an old
-   agent. [Work on the website](https://gitlab.com/ConradBailey/sAnIc#work-on-the-website). Whatever!
+   agent. [Work on the website](https://gitlab.com/sAnIc-ND/sAnIc#work-on-the-website). Whatever!
 3. Make sure you've committed everything you want and push the branch
    to your own forked repo,
    then
@@ -92,7 +92,7 @@ contribute work instead of straight pushes to the repo.
 All of the website files are found in the `public` directory.
 0. Consider using the branch and merge workflow
    from
-   [Contributing to the Project](https://gitlab.com/ConradBailey/sAnIc#contribute-to-the-project).
+   [Contributing to the Project](https://gitlab.com/sAnIc-ND/sAnIc#contribute-to-the-project).
 1. Edit, add, or delete files in `public`
 2. Test your changes locally, i.e. review your changes in your browser
 3. Commit and push your changes. A pipeline will run that publishes
@@ -100,7 +100,7 @@ All of the website files are found in the `public` directory.
    changes on at your local copy of the website,
    `https://yourusername.gitlab.io/sAnIc/`.
 4. When you're happy with your changes create a merge request (see
-   [here](https://gitlab.com/ConradBailey/sAnIc#contribute-to-the-project)).
+   [here](https://gitlab.com/sAnIc-ND/sAnIc#contribute-to-the-project)).
 
 ### Start a Jupyter Notebook in the Virtualenv ###
 Jupyter notebooks are good for data analysis because you can re-run
@@ -113,7 +113,7 @@ creating the kernel it can be reused at will.
 0. Install Jupyter for your distribution
 1. Activate the virtualenv (see step
    3
-   [here](https://gitlab.com/ConradBailey/sAnIc#install-the-virtual-environment)).
+   [here](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)).
 2. Run `$ ipython kernel install --user --name=sAnIc`. This will create
    a kernel called `sAnIc` that we will use to make a notebook in the
    next step.
@@ -132,12 +132,12 @@ creating the kernel it can be reused at will.
 This process will mimic the remote environment used for official
 scoring when submitting a job.  It is important to do this
 before
-[submitting the agent as a job](https://gitlab.com/ConradBailey/sAnIc#submit-a-job) so
+[submitting the agent as a job](https://gitlab.com/sAnIc-ND/sAnIc#submit-a-job) so
 that you don't waste time finding runtime errors after uploading to
 the server.
 1. Activate your virtual environment (see step
    3
-   [here](https://gitlab.com/ConradBailey/sAnIc#install-the-virtual-environment)).
+   [here](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)).
 2. Acquire a credentials file from Conrad. This contains sensitive
    passwords and stuff. **DO NOT COMMIT/PUSH THIS FILE!!** If you keep
    the name `retro_contest_credentials.dontcommit` then it will be
@@ -172,7 +172,7 @@ the server.
    + `bk2` is a directory containing visual information for each trial
      that can
      be
-     [converted into `.mp4` videos](https://gitlab.com/ConradBailey/sAnIc#convert-.bk2-files-to-.mp4-videos). Due
+     [converted into `.mp4` videos](https://gitlab.com/sAnIc-ND/sAnIc#convert-.bk2-files-to-.mp4-videos). Due
      to the nature of Docker, this file is recursively owned by
      `root`, so manipulating or removing this file will require root
      permissions, but there is nothing inherently root-worthy in this
@@ -186,7 +186,7 @@ evaluations. Furthermore, we can only run one of these at a time, so
 communicate your intentions to the group for scheduling purposes. If
 your agent beats our high score, then its performance becomes our new
 high score!
-1. [Evaluate your agent locally](https://gitlab.com/ConradBailey/sAnIc#evaluate-an-agent-locally). This
+1. [Evaluate your agent locally](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally). This
    ensures there are no runtime bugs and you don't waste resources
    uploading doomed agents to be evaluated. I'm still working on
    automating this part, but there will be an _Evaluate Locally_
@@ -206,12 +206,12 @@ These steps require the `ffmpeg` application with `x264` support.
 1. Make sure the `.bk2` file is **not** owned by `root`. This can be
    done to
    `local_eval.sh`
-   [produced results](https://gitlab.com/ConradBailey/sAnIc#evaluate-an-agent-locally) with
+   [produced results](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally) with
    `$ sudo chown -R username:username results/bk2` (this is an
    example, your invocation may vary).
 2. Activate your virtual environment (see step
    3
-   [here](https://gitlab.com/ConradBailey/sAnIc#install-the-virtual-environment)).
+   [here](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)).
 3. To **store** the output use
    `$ python3 -m retro.scripts.playback_movie somefile.bk2`.
    This will produce `somefile.mp4` in the working directory. To

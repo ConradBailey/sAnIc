@@ -88,7 +88,7 @@ safe_run "Docker: Building image" "docker build -f $DOCKER_FILE -t $DOCKER_TAG .
 
 
 # Server Operations #
-safe_run "Server: Logging in" "retro-contest login --email $TEAM_EMAIL_ADDR --password $TEAM_PASSWORD" "Problem logging into server."
+safe_run "Server: Logging in" "retro-contest login --server 'https://contest.openai.com' --email $TEAM_EMAIL_ADDR --password $TEAM_PASSWORD" "Problem logging into server."
 safe_run "Server: Submitting job" "retro-contest job submit -t $DOCKER_TAG" "Problem submitting job for '$AGENT_NAME:$AGENT_VERSION'."
 safe_run "Server: Logging out" "retro-contest logout" "Problem logging out of server."
 
