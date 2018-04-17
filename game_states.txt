@@ -1,0 +1,93 @@
+Airstriker-Genesis : Level1
+AlienSoldier-Genesis : DefaultSettings.Level1 DefaultSettings.Level10 DefaultSettings.Level11 DefaultSettings.Level12 DefaultSettings.Level13 DefaultSettings.Level14 DefaultSettings.Level15 DefaultSettings.Level16 DefaultSettings.Level17 DefaultSettings.Level18 DefaultSettings.Level19 DefaultSettings.Level2 DefaultSettings.Level20 DefaultSettings.Level21 DefaultSettings.Level22 DefaultSettings.Level23 DefaultSettings.Level24 DefaultSettings.Level25 DefaultSettings.Level3 DefaultSettings.Level4 DefaultSettings.Level5 DefaultSettings.Level6 DefaultSettings.Level7 DefaultSettings.Level8 DefaultSettings.Level9
+AlteredBeast-Genesis : Level1
+BioHazardBattle-Genesis : Level1.TopLeftCharacter.LevelSelect Level1.TopLeftCharacter Level2.TopLeftCharacter Level3.TopLeftCharacter Level4.TopLeftCharacter Level5.TopLeftCharacter Level6.TopLeftCharacter Level7.TopLeftCharacter Level8.TopLeftCharacter _LevelSelect
+Columns-Genesis : Arcade.Easy.Level0
+ColumnsIII-Genesis : 1Player.Normal.Level1
+ComixZone-Genesis : Episode1.Page1 Episode1.Page2 Episode2.Page1 Episode2.Page2 Episode3.Page1 Episode3.Page2
+CrackDown-Genesis : 1Player.Level1
+DrRobotniksMeanBeanMachine-Genesis : ScenarioMode.Level1
+DynamiteHeaddy-Genesis : Level2-2 Level2-3 Level3-1 Level3-2 Level3-3 Level3-4 Level4-1 Level4-2 Level4-3 Level4-4 Level5-1 Level5-2 Level5-3 Level5-4 Level6-1 Level6-2 Level6-3 Level6-4 Level7-1 Level8-1 Level8-2 Level8-3 Level8-4 Level8-5 Level9-1 Level9-2 Level9-3 _LevelSelect
+FatalLabyrinth-Genesis : Level1
+Flicky-Genesis : Bird.Level1 Bird.Level10 Bird.Level11 Bird.Level12 Bird.Level13 Bird.Level14 Bird.Level15 Bird.Level16 Bird.Level17 Bird.Level18 Bird.Level19 Bird.Level2 Bird.Level20 Bird.Level21 Bird.Level22 Bird.Level23 Bird.Level24 Bird.Level25 Bird.Level26 Bird.Level27 Bird.Level28 Bird.Level29 Bird.Level3 Bird.Level30 Bird.Level31 Bird.Level32 Bird.Level33 Bird.Level34 Bird.Level35 Bird.Level36 Bird.Level37 Bird.Level38 Bird.Level39 Bird.Level4 Bird.Level40 Bird.Level41 Bird.Level42 Bird.Level43 Bird.Level44 Bird.Level45 Bird.Level46 Bird.Level47 Bird.Level48 Bird.Level5 Bird.Level6 Bird.Level7 Bird.Level8 Bird.Level9 _LevelSelect
+GainGround-Genesis : Round1Stage1 Round1Stage10 Round1Stage2 Round1Stage3 Round1Stage4 Round1Stage5 Round1Stage6 Round1Stage7 Round1Stage8 Round1Stage9 Round2Stage1 Round2Stage10 Round2Stage2 Round2Stage3 Round2Stage4 Round2Stage5 Round2Stage6 Round2Stage7 Round2Stage8 Round2Stage9 Round3Stage1 Round3Stage10 Round3Stage2 Round3Stage3 Round3Stage4 Round3Stage5 Round3Stage6 Round3Stage7 Round3Stage8 Round3Stage9 Round4Stage1 Round4Stage10 Round4Stage2 Round4Stage3 Round4Stage4 Round4Stage5 Round4Stage6 Round4Stage7 Round4Stage8 Round4Stage9 Round5Stage1 Round5Stage10 Round5Stage2 Round5Stage3 Round5Stage4 Round5Stage5 Round5Stage6 Round5Stage7 Round5Stage8 Round5Stage9 _LevelSelect
+GalaxyForceII-Genesis : SceneALevel1
+GoldenAxe-Genesis : 1Player.Arcade.DefaultCharacter.Level1
+GoldenAxeIII-Genesis : 1Player.DefaultCharacter.Level1
+KidChameleon-Genesis : AlienIsle AlienTwilight BagelBrothers BeneathTheTwistedHills BlizzardMountain BloodySwamp BlueLakeWoods1 BlueLakeWoods2 BoomerangBosses CavesOfIce CoralBladeGrotto CrabCove DevilsMarsh1 DevilsMarsh2 DiamondEdge Dragonspike Elsewhere1 Elsewhere10 Elsewhere11 Elsewhere12 Elsewhere13 Elsewhere14 Elsewhere15 Elsewhere16 Elsewhere17 Elsewhere18 Elsewhere19 Elsewhere2 Elsewhere20 Elsewhere21 Elsewhere22 Elsewhere23 Elsewhere24 Elsewhere25 Elsewhere26 Elsewhere27 Elsewhere28 Elsewhere29 Elsewhere3 Elsewhere30 Elsewhere31 Elsewhere32 Elsewhere4 Elsewhere5 Elsewhere6 Elsewhere7 Elsewhere8 Elsewhere9 ForcedEntry FrostyDoom HiddenCanyon HighwaterPass1 HighwaterPass2 HillsOfForever HillsOfTheWarrior1 HillsOfTheWarrior2 HoverboardBeach IceGodsVengeance IsleOfTheLionLord KnightsIsle LionsDen MadmazeMountain MonsterIsland Plethora PyramidsOfPeril ScorpionIsle SecretsInTheRocks Shishkaboss SinisterSewers SkyFortress SkydragonCastle1 SkydragonCastle2 StairwayToOblivion StormwalkMountain TheBlackPit TheCagedBeasts TheCliffsOfIllusion TheCrypt TheCrystalCrags1 TheCrystalCrags2 TheDeadlySkyscrapers TheFinalMarathon TheForbiddenTombs TheHillsHaveEyes TheLandBelow TheNightmarePeaks1 TheNightmarePeaks2 ThePinnacle TheShimmeringCaves TheValleyOfLife TheWhisperingWoods1 TheWhisperingWoods2 TowersOfBlood TunnelsBeneathTheWoods UnderSkullMountain1 UnderSkullMountain2 UnderSkullMountain3 WhaleGrotto WindCastles1 WindCastles2 WindyCity WoodsOfDespair1 WoodsOfDespair2
+RevengeOfShinobi-Genesis : District1Level1 District1Level2 District1Level3 District2Level1 District2Level2 District2Level3 District3Level1 District3Level2 District3Level3 District4Level1 District4Level2 District4Level3 District5Level1 District5Level2 District5Level3 District6Level1 District6Level2 District6Level3 District7Level1 District7Level2 District7Level3 District8Level1 District8Level2 District8Level3
+Ristar-Genesis : Level1.1 Level1.2 Level1.Boss Level2.1 Level2.2 Level2.Boss Level3.1 Level3.2 Level3.Boss Level4.1 Level4.2 Level4.Boss Level5.1 Level5.2 Level5.Boss Level6.1 Level6.2 Level6.Boss Level7.1 Level7.Boss _LevelSelect
+ShadowDancerTheSecretOfShinobi-Genesis : Level1
+ShinobiIIIReturnOfTheNinjaMaster-Genesis : Level1 Level2 Level3 Level4 Level5 Level6 Level7
+SonicAndKnuckles3-Genesis : AngelIslandZone.Act1 AngelIslandZone.Act2 CarnivalNightZone.Act1 CarnivalNightZone.Act2 DeathEggZone.Act1 DeathEggZone.Act2 FlyingBatteryZone.Act1 FlyingBatteryZone.Act2 HiddenPalaceZone HydrocityZone.Act1 HydrocityZone.Act2 IcecapZone.Act1 IcecapZone.Act2 LaunchBaseZone.Act1 LaunchBaseZone.Act2 LavaReefZone.Act1 LavaReefZone.Act2 MarbleGardenZone.Act1 MarbleGardenZone.Act2 MushroomHillZone.Act1 MushroomHillZone.Act2 SandopolisZone.Act1 SandopolisZone.Act2
+SonicTheHedgehog-Genesis : GreenHillZone.Act1 GreenHillZone.Act2 GreenHillZone.Act3 LabyrinthZone.Act1 LabyrinthZone.Act2 LabyrinthZone.Act3 MarbleZone.Act1 MarbleZone.Act2 MarbleZone.Act3 ScrapBrainZone.Act1 ScrapBrainZone.Act2 SpringYardZone.Act1 SpringYardZone.Act2 SpringYardZone.Act3 StarLightZone.Act1 StarLightZone.Act2 StarLightZone.Act3
+SonicTheHedgehog2-Genesis : AquaticRuinZone.Act1 AquaticRuinZone.Act2 CasinoNightZone.Act1 CasinoNightZone.Act2 ChemicalPlantZone.Act1 ChemicalPlantZone.Act2 EmeraldHillZone.Act1 EmeraldHillZone.Act2 HillTopZone.Act1 HillTopZone.Act2 MetropolisZone.Act1 MetropolisZone.Act2 MetropolisZone.Act3 MysticCaveZone.Act1 MysticCaveZone.Act2 OilOceanZone.Act1 OilOceanZone.Act2 WingFortressZone
+SpaceHarrierII-Genesis : Level1
+StreetsOfRage-Genesis : 1Player.Adam.Round1 1Player.Adam.Round2 1Player.Adam.Round3 1Player.Adam.Round4 1Player.Adam.Round5 1Player.Adam.Round6 1Player.Adam.Round7 1Player.Adam.Round8
+StreetsOfRage2-Genesis : 1Player.Axel.Level1 1Player.Axel.Level2 1Player.Axel.Level3 1Player.Axel.Level4 1Player.Axel.Level5 1Player.Axel.Level6 1Player.Axel.Level7 1Player.Axel.Level8
+StreetsOfRage3-Genesis : 1Player.Axel.Stage1 1Player.Axel.Stage2 1Player.Axel.Stage3 1Player.Axel.Stage4 1Player.Axel.Stage5 1Player.Axel.Stage6 1Player.Axel.Stage7A _LevelSelect
+SuperThunderBlade-Genesis : Level1
+Vectorman-Genesis : Level1 Level10 Level11 Level12 Level13 Level14 Level15 Level16 Level2 Level3 Level4 Level5 Level6 Level7 Level8 Level9 _LevelSelect
+Vectorman2-Genesis : Level1 Level10 Level11 Level12 Level13 Level14 Level15 Level16 Level17 Level18 Level19 Level2 Level20 Level21 Level22 Level3 Level4 Level5 Level6 Level7 Level8 Level9 _LevelSelect
+Adventure-Atari2600 : Start
+AirRaid-Atari2600 : Start
+Alien-Atari2600 : Start
+Amidar-Atari2600 : Start
+Assault-Atari2600 : Start
+Asterix-Atari2600 : Start
+Asteroids-Atari2600 : Start
+Atlantis-Atari2600 : Start
+BankHeist-Atari2600 : Start
+BattleZone-Atari2600 : Start
+BeamRider-Atari2600 : Start
+Berzerk-Atari2600 : Start
+Bowling-Atari2600 : Start
+Boxing-Atari2600 : Start
+Breakout-Atari2600 : Start
+Carnival-Atari2600 : Start
+Centipede-Atari2600 : Start
+ChopperCommand-Atari2600 : Start
+CrazyClimber-Atari2600 : Start
+Defender-Atari2600 : Start
+DemonAttack-Atari2600 : Start
+DoubleDunk-Atari2600 : Start
+Enduro-Atari2600 : Start
+FishingDerby-Atari2600 : Start
+Freeway-Atari2600 : Start
+Frostbite-Atari2600 : Start
+Gopher-Atari2600 : Start
+Gravitar-Atari2600 : Start
+Hero-Atari2600 : Start
+IceHockey-Atari2600 : Start
+Jamesbond-Atari2600 : Start
+JourneyEscape-Atari2600 : Start
+Kaboom-Atari2600 : Start
+Kangaroo-Atari2600 : Start
+Krull-Atari2600 : Start
+KungFuMaster-Atari2600 : Start
+MontezumaRevenge-Atari2600 : Start
+MsPacman-Atari2600 : Start
+NameThisGame-Atari2600 : Start
+Phoenix-Atari2600 : Start
+Pitfall-Atari2600 : Start
+Pong-Atari2600 : Start
+Pooyan-Atari2600 : Start
+PrivateEye-Atari2600 : Start
+Qbert-Atari2600 : Start
+Riverraid-Atari2600 : Start
+RoadRunner-Atari2600 : Start
+Robotank-Atari2600 : Start
+Seaquest-Atari2600 : Start
+Skiing-Atari2600 : Start
+Solaris-Atari2600 : Start
+SpaceInvaders-Atari2600 : Start
+StarGunner-Atari2600 : Start
+Tennis-Atari2600 : Start
+TimePilot-Atari2600 : Start
+Tutankham-Atari2600 : Start
+UpNDown-Atari2600 : Start
+Venture-Atari2600 : Start
+VideoPinball-Atari2600 : Start
+WizardOfWor-Atari2600 : Start
+YarsRevenge-Atari2600 : Start
+Zaxxon-Atari2600 : Start
