@@ -29,7 +29,7 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 * [Start a Jupyter Notebook in the Virtualenv](https://gitlab.com/sAnIc-ND/sAnIc#start-a-jupyter-notebook-in-the-virtualenv)
 * [Evaluate an Agent Locally](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)
 * [Submit a Job](https://gitlab.com/sAnIc-ND/sAnIc#submit-a-job)
-* [Convert `.bk2` Files to `.mp4` Videos](https://gitlab.com/sAnIc-ND/sAnIc#convert-.bk2-files-to-.mp4-videos)
+* [Convert `.bk2` Files to `.mp4` Videos](https://gitlab.com/sAnIc-ND/sAnIc#convert-bk2-files-to-mp4-videos)
 
 ### Assumptions ###
 * You're keeping everything for the project in a directory called
@@ -171,7 +171,7 @@ the server.
    + `bk2` is a directory containing visual information for each trial
      that can
      be
-     [converted into `.mp4` videos](https://gitlab.com/sAnIc-ND/sAnIc#convert-.bk2-files-to-.mp4-videos). Due
+     [converted into `.mp4` videos](https://gitlab.com/sAnIc-ND/sAnIc#convert-bk2-files-to-mp4-videos). Due
      to the nature of Docker, this file is recursively owned by
      `root`, so manipulating or removing this file will require root
      permissions, but there is nothing inherently root-worthy in this
