@@ -146,15 +146,20 @@ the server.
 3. Write a Docker file for your agent. See examples and Docker
    documentation. They're really not bad; waaayyy easier than
    makefiles.
-4. Run `$ local_eval.sh [Docker File] [Agent Name] [Agent Version] [Game Name] [State Name] [Time Limit (secs)]`.
+4. Run `$ local_eval.sh [Docker File] [Agent Name] [Agent Version] [Game Name] [State Name] [Time Step Limit]`.
    This will build a docker image tagged as
    `$TEAM_MEMBER_NAME/$AGENT_NAME:v$AGENT_VERSION`, pull the
    `retro-env` image, tag `retro-env` as `remote-env`, and run a local
    evaluation with `$ retro-contest run` using the new docker image
    for the agent and the specified game and state for the
-   environment. The time limit determines how long the agent is
-   evaluated for in wall-clock time; i.e. it will run as many trials
-   of that game and state as it can before the allotted time runs out.
+
+   environment. The time step limit determines how many time steps
+   (i.e. calls to `env.step()`) the evaluation is alloted. It doesn't
+   matter how many times Sonic dies, wins, or runs out of time; the
+   evaluation only has the allotted amount of steps to achieve the
+   highest average score possible. The contest sets this to one
+   million steps; you'll have to play around with this value to fit
+   your experimentation needs.
 5. This will output a folder named `results` in the working
    directory. In this directory there are useful files:
    + `agent_stderr.txt` and `agent_stdout.txt`: This is where you'll

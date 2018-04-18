@@ -21,7 +21,7 @@ get_abs_location() {
 }
 
 PROG_NAME=$(basename "$0")
-USAGE="Usage: $PROG_NAME [Docker File] [Agent Name] [Agent Version] [Game Name] [State Name] [Time Limit (secs)]"
+USAGE="Usage: $PROG_NAME [Docker File] [Agent Name] [Agent Version] [Game Name] [State Name] [Time Step Limit]"
 
 # Validate Arguments #
 if [ $# -ne 6 ] ; then
@@ -104,6 +104,6 @@ safe_run "Docker: Pulling retro-env" "docker pull openai/retro-env" "Problem pul
 safe_run "Docker: Tagging retro-env as remote-env" "docker tag openai/retro-env remote-env" "Problem tagging openai/retro-env as remote-env."
 
 # Run Evaluations #
-safe_run "Eval: Running evaluation" "retro-contest run -W $TIME_LIMIT --agent $DOCKER_TAG --results-dir results --no-nv --use-host-data $GAME_NAME $STATE_NAME" "Problem running local evaluation."
+safe_run "Eval: Running evaluation" "retro-contest run --timestep-limit $TIME_LIMIT --agent $DOCKER_TAG --results-dir results --no-nv --use-host-data $GAME_NAME $STATE_NAME" "Problem running local evaluation."
 
 exit 0
