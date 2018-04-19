@@ -1,5 +1,0 @@
-FROM openai/retro-agent:latest
-
-ADD example.py .
-
-CMD ["python", "-u", "/root/compo/example.py"]
