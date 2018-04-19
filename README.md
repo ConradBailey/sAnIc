@@ -152,13 +152,14 @@ the server.
      on an implementation.
    + Simulate a contest run using the new container for the agent and
      the specified game and state for the environment.
-   The `timestep_limit` determines how many time steps
-   (i.e. calls to `env.step()`) the evaluation is alloted. It doesn't
-   matter how many times Sonic dies, wins, or runs out of time; the
-   evaluation only has the allotted amount of steps to achieve the
-   highest average score possible. The contest sets this to one
-   million steps; you'll have to play around with this value to fit
-   your experimentation needs.
+
+     The `timestep_limit` determines how many time steps
+     (i.e. calls to `env.step()`) the evaluation is alloted. It doesn't
+     matter how many times Sonic dies, wins, or runs out of time; the
+     evaluation only has the allotted amount of steps to achieve the
+     highest average score possible. The contest sets this to one
+     million steps; you'll have to play around with this value to fit
+     your experimentation needs.
 5. This will output a folder named `results` (by default. see
    `--results-dir`) in the working directory. In this directory there
    are useful files:
