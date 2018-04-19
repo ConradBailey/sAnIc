@@ -144,7 +144,6 @@ the server.
    safely ignored thanks to `.gitignore`. If you guys are paranoid,
    then we can work out some encryption, but for now just be careful.
 4. Run `$ ./local_eval.py [--results_dir RESULTS_DIR] path name version game state timestep_limit`'.
-
    This will
    + Create a Docker container for your agent at `path`.
    + Tag that container as `team_member_name/name:version`. The `name`
@@ -153,7 +152,6 @@ the server.
      on an implementation.
    + Simulate a contest run using the new container for the agent and
      the specified game and state for the environment.
-
    The `timestep_limit` determines how many time steps
    (i.e. calls to `env.step()`) the evaluation is alloted. It doesn't
    matter how many times Sonic dies, wins, or runs out of time; the
