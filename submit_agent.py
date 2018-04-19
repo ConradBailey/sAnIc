@@ -7,24 +7,6 @@ from local_eval import make_docker_tag, build_agent, get_credentials
 import sys
 import argparse
 
-#def get_credentials():
-#  creds_filename = "retro_contest_credentials.dontcommit"
-#  creds_dir = os.path.split(os.path.realpath(__file__))[0]
-#  creds_txt = open(os.path.join(creds_dir, creds_filename), 'r').read()
-#  findings = re.findall("(.*)='(.*')", creds_txt)
-#
-#  creds = {}
-#  for k,v in findings:
-#    creds[k] = v
-#  return creds
-#
-#def make_docker_tag(name, version):
-#  return '{}:v{}'.format(name, version)
-#
-#def build_agent(path, docker_tag):
-#  build_cmd = ['build', '-t', docker_tag, path]
-#  return retro_contest.docker.main(build_cmd)
-
 def contest_login(email, password):
   login_cmd = ['login',
                '--server', 'https://contest.openai.com',
