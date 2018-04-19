@@ -28,6 +28,7 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 * [Work on the Website](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)
 * [Start a Jupyter Notebook in the Virtualenv](https://gitlab.com/sAnIc-ND/sAnIc#start-a-jupyter-notebook-in-the-virtualenv)
 * [Evaluate an Agent Locally](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)
+* [Evaluate an Agent On Many Tests](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-on-many-tests)
 * [Submit a Job](https://gitlab.com/sAnIc-ND/sAnIc#submit-a-job)
 * [Convert `.bk2` Files to `.mp4` Videos](https://gitlab.com/sAnIc-ND/sAnIc#convert-.bk2-files-to-.mp4-videos)
 * [Resources](https://gitlab.com/sAnIc-ND/sAnIc#resources)
@@ -183,6 +184,28 @@ the server.
      `root`, so manipulating or removing this file will require root
      permissions, but there is nothing inherently root-worthy in this
      directory.
+
+### Evaluate an Agent On Many Tests ###
+Evaluating an agent
+on
+[one game locally](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally) can
+be great for debugging, but it's not really what we need for
+analytics. In the classic data science framework we need to run our
+agents on test sets, and here's how.
+1. Run `$ ./test_agent [--path PATH] [--results_dir RESULTS_DIR] [--nprocs NPROCS] tests_file timestep_limit name version`.
+   Every line of the `tests_file` is an environment to test the agent
+   in; a game title followed by a state name, separated by white space
+   (here's
+   [an example](https://gitlab.com/sAnIc-ND/sAnIc/blob/master/agents/example/example.tests)). The
+   `timestep_limit` specifies the timestep limit for each
+   environment. The `--nprocs` flag allows us to perform these
+   experiments in parallel! And `--path` can be used if a Docker
+   container needs to be built.
+2. This will output a folder named `results` (can override with
+   `--results_dir`). This is similar to singular, local evaluation
+   results, but inside this directory is many more directories. Each
+   subdirectory holds the output of the experiment corresponding to
+   the subdirectory name.
 
 ### Submit a Job ###
 Submitting a job means packaging some agent up in a Docker container
