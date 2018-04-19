@@ -143,25 +143,27 @@ the server.
    the name `retro_contest_credentials.dontcommit` then it will be
    safely ignored thanks to `.gitignore`. If you guys are paranoid,
    then we can work out some encryption, but for now just be careful.
-3. Write a Docker file for your agent. See examples and Docker
-   documentation. They're really not bad; waaayyy easier than
-   makefiles.
-4. Run `$ local_eval.sh [Docker File] [Agent Name] [Agent Version] [Game Name] [State Name] [Time Step Limit]`.
-   This will build a docker image tagged as
-   `$TEAM_MEMBER_NAME/$AGENT_NAME:v$AGENT_VERSION`, pull the
-   `retro-env` image, tag `retro-env` as `remote-env`, and run a local
-   evaluation with `$ retro-contest run` using the new docker image
-   for the agent and the specified game and state for the
+4. Run `$ ./local_eval.py [--results_dir RESULTS_DIR] path name version game state timestep_limit`'.
 
-   environment. The time step limit determines how many time steps
+   This will
+   + Create a Docker container for your agent at `path`.
+   + Tag that container as `team_member_name/name:version`. The `name`
+     should characterize the implementation (e.g. DNN for deep neural
+     net) and `version` is a convenient way to iteratively experiment
+     on an implementation.
+   + Simulate a contest run using the new container for the agent and
+     the specified game and state for the environment.
+
+   The `timestep_limit` determines how many time steps
    (i.e. calls to `env.step()`) the evaluation is alloted. It doesn't
    matter how many times Sonic dies, wins, or runs out of time; the
    evaluation only has the allotted amount of steps to achieve the
    highest average score possible. The contest sets this to one
    million steps; you'll have to play around with this value to fit
    your experimentation needs.
-5. This will output a folder named `results` in the working
-   directory. In this directory there are useful files:
+5. This will output a folder named `results` (by default. see
+   `--results-dir`) in the working directory. In this directory there
+   are useful files:
    + `agent_stderr.txt` and `agent_stdout.txt`: This is where you'll
      find any debugging output or errors produced by your agent.
    + `remote-stderr.txt` and `remote-stdout.txt`: This is where you'll
@@ -193,16 +195,14 @@ your agent beats our high score, then its performance becomes our new
 high score!
 1. [Evaluate your agent locally](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally). This
    ensures there are no runtime bugs and you don't waste resources
-   uploading doomed agents to be evaluated. I'm still working on
-   automating this part, but there will be an _Evaluate Locally_
-   section here soon.
-2. Run `$ ./submit_agent.sh docker_file agent_name agent_version`
-   where `agent_name` should describe the implementation and
-   `agent_version` allows you to iterate on that implementation. This
-   script will build the Docker container for your agent, tag it as
-   `$TEAM_MEMBER_NAME/$AGENT_NAME:v$AGENT_VERSION`, and submit it for
-   evaluation. You shouldn't have to worry about these details, but
-   this info is helpful if you're managing your Docker images.
+   uploading doomed agents to be evaluated.
+2. Run `$ ./submit_agent.py [--path PATH] name version`. The `name`
+   and `version` designate the tag for Docker container (
+   see
+   [here](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)).
+   This script looks for an existing container with that tag and
+   submits it for evaluation. If provided with `--path` it will also
+   build a new container automatically.
 3. You can check or change the status of your job at
    the [jobs page](https://contest.openai.com/user/job).
 
