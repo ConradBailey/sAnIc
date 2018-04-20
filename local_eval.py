@@ -44,12 +44,12 @@ def evaluate(args):
 
 def init_parser():
   parser = argparse.ArgumentParser(description="Build agent image and evaluate it locally")
-  parser.add_argument('path', type=str, help='Path to the agent python script')
   parser.add_argument('name', type=str, help='Name of agent')
   parser.add_argument('version', type=str, help='Version of agent')
   parser.add_argument('game', type=str, help='Name of the game that the agent will be evaluated on')
   parser.add_argument('state', type=str, help='Name of the game state that the agent will be evaluated on')
   parser.add_argument('timestep_limit', type=str, help='Number of timesteps considered during evaluation')
+  parser.add_argument('--path', type=str, help='Path to the agent python script')
   parser.add_argument('--results_dir','-r', type=str, default='results', help='Path to output results')
   return parser
 

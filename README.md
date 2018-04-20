@@ -143,15 +143,18 @@ the server.
    the name `retro_contest_credentials.dontcommit` then it will be
    safely ignored thanks to `.gitignore`. If you guys are paranoid,
    then we can work out some encryption, but for now just be careful.
-4. Run `$ ./local_eval.py [--results_dir RESULTS_DIR] path name version game state timestep_limit`'.
+4. Run `$ ./local_eval.py [--results_dir RESULTS_DIR] [--path PATH] name version game state timestep_limit`'.
    This will
-   + Create a Docker container for your agent at `path`.
+   + Create a Docker container for your agent at `PATH`.
    + Tag that container as `team_member_name/name:version`. The `name`
      should characterize the implementation (e.g. DNN for deep neural
      net) and `version` is a convenient way to iteratively experiment
      on an implementation.
    + Simulate a contest run using the new container for the agent and
      the specified game and state for the environment.
+
+	 The `--path` argument is not necessary if the container described
+     by `name` and `version` has already been built.
 
      The `timestep_limit` determines how many time steps
      (i.e. calls to `env.step()`) the evaluation is alloted. It doesn't
