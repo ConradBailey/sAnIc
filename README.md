@@ -242,7 +242,7 @@ These steps require the `ffmpeg` application with `x264` support.
    `$ python3 -m retro.scripts.playback_movie somefile.bk2`.
    This will produce `somefile.mp4` in the working directory. To
    **immediately view** the output use
-   `python3 -m retro.scripts.playback_movie -v viewer` where
+   `python3 -m retro.scripts.playback_movie somefile.bk2 -v viewer` where
    `viewer` is the name of the application you'd like to use to view
    the movie (e.g. `vlc`, `mplayer`, etc).
 
