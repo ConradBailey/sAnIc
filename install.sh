@@ -99,38 +99,6 @@ if [ $PYTHON_VERSION -lt $PYTHON_REQUIRED_VERSION ] ; then
 fi
 echo "good"
 
-## glibc ##
-LIBC=$(ldd --version | head -n1 | awk -F'[()]' '{print $2}')
-printf '%s' "Testing ldd exit status..."
-if [ $? -ne 0 ] ; then
-		printf '\n%s\n' "ERROR: problem executing ldd" 1>&2
-		exit 1
-fi
-echo "good"
-
-printf '%s' "Testing glibc existence..."
-if [ "$LIBC" != "GNU libc" ] ; then
-		printf '\n%s\n' "ERROR: GNU libc $GLIBC_REQUIRED_VERSION is required" 1>&2
-		exit 1
-fi
-echo "good"
-
-printf '%s' "Testing ldd exit status..."
-GLIBC_REQUIRED_VERSION=214
-GLIBC_VERSION=$(ldd --version | head -n1 | sed 's/ /\n/g' | tail -1 | tr -d .)
-if [ $? -ne 0 ] ; then
-		printf '\n%s\n' "ERROR: problem executing ldd" 1>&2
-		exit 1
-fi
-echo "good"
-
-printf '%s' "Testing glibc version..."
-if [ $GLIBC_VERSION -lt $GLIBC_REQUIRED_VERSION ] ; then
-		printf '\n%s\n' "ERROR: GNU libc $GLIBC_REQUIRED_VERSION is required" 1>&2
-		exit 1
-fi
-echo "good"
-
 # Setup Virtual Environment #
 if [ -e 'venv' ] ; then
 		read -p "'venv' exists. Would you like to remove and reinstall 'venv' (y/n)? " ANSWER

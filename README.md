@@ -14,7 +14,6 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 * pip3
 * virtualenv
 * git
-* glibc 2.14
 * docker
 
 #### Requirements ####
