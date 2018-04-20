@@ -14,7 +14,9 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 * pip 3.6
 * virtualenv (download via `$ pip3.6 install virtualenv`)
 * git
-* docker (Check out this link for (Ubuntu instructions)[https://docs.docker.com/install/linux/docker-ce/ubuntu/])
+* docker
+  * [Ubuntu instructions](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+  * [Mac Instructions](https://store.docker.com/editions/community/docker-ce-desktop-mac)
 
 #### Requirements ####
 * 64-bit Architecture
