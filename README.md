@@ -131,84 +131,82 @@ creating the kernel it can be reused at will.
 
 ### Creating an Agent ###
 First and foremost, look at
-(`agents/example/`)[https://gitlab.com/sAnIc/sAnIc/tree/master/agents/example]
+[`agents/example/`](https://gitlab.com/sAnIc-ND/sAnIc/tree/master/agents/example)
 for reference on the most basic implementation of an agent.
 
-There are two agents to create. A remote version requires a remote
-environment, e.g. something provided by the contest. **Only remote
-agents** are suited for use with `local_eval.py` and
-`submit_agent.py`. Local agents are useful when prototyping and
-debugging.
-
+There are two agents to create.
+* **Local**: Local agents work with a locally administered
+  environemnt. They are useful when prototyping and debugging. Use
+  `print()` and `env.render()` in these agents liberally.
+* **Remote**: A remote agent works with a remotely administered
+  environment, e.g. something provided by the contest. **Only remote
+  agents** are suited for use with `local_eval.py` and
+  `submit_agent.py`. Removing slow IO tasks like `print()` statements
+  will greatly increase speed.
 1. Setup `main()`:
    * Local:
-	 1.
-		>>>
-		if __name__ == '__main__':
-		   main()`
-	    >>>
-	 2.
-		>>>
-		def main():`
-		  ...
-		>>>
+
+        ```python
+        def main():
+        	...
+        if __name__ == '__main__':
+        	main()
+        ```
    * Remote:
-	 1.
-		>>>
-		import gym_remote.exceptions as gre
-		>>>
-	 2.
-		>>>
-		if __name__ == '__main__':
+
+        ```python
+        import gym_remote.exceptions as gre
+
+        def main():
+          ...
+
+        if __name__ == '__main__':
           try:
             main()
           except gre.GymRemoteError as e:
             print('exception', e)
-		>>>
-	 3.
-		>>>
-		def main():
-		  ...
-		>>>
+        ```
 2. Make the environment:
    * Local:
-	 1.
-		>>>
-		from retro_contest.local import make
-		>>>
-	 2.
-		>>>
-		env = make(game = 'some_game_name', state = 'some_state_of_that_game')
-		>>>
+
+        ```python
+        from retro_contest.local import make
+
+        def main():
+          ...
+          env = make(game = 'some_game_name', state = 'some_state_of_that_game')
+          ...
+        ```
    * Remote:
-	 1.
-		>>>
-		import gym_remote.client as grc
-		>>>
-	  2.
-		>>>
-		env = grc.RemoteEnv('tmp/sock')
-		>>>
+
+        ```python
+        import gym_remote.client as grc
+
+        def main():
+          ...
+          env = grc.RemoteEnv('tmp/sock')
+          ...
+        ```
 3. Reset the environment and start the game loop
-   >>>
-   # This refreshes the environment, e.g. score=0 and Sonic is sent to
-   # the beginning of the level
-   env.reset()
 
-   while True:
-     # Create the action
-     action = env.action_space.sample()
+    ```python
+    # This refreshes the environment, e.g. score=0 and Sonic is sent to
+    # the beginning of the level
+    env.reset()
 
-	 # Perform the action
-     ob, reward, done, _ = env.step(action)
+    while True:
+      # Create the action
+      action = env.action_space.sample()
 
-	 # Check whether the action resulted in a death, timeout, or
-     # completed the level
-	 if done:
-	   print('episode complete')
-	   # refresh the episode for the next loop iteration
-       env.reset()
-   >>>
+      # Perform the action
+      ob, reward, done, _ = env.step(action)
+
+      # Check whether the action resulted in a death, timeout, or
+      # completed the level
+      if done:
+        # refresh the episode for the next loop iteration
+        env.reset()
+    ```
 4. In your local scripts, after `env.step()` you can add
    `env.render()` to actually see the game being played. **DO NOT**
    use this line in remote agents or when doing long tests; rendering
