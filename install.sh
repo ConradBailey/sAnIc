@@ -25,9 +25,6 @@ REQUIRED_BINS="$PIP $PYTHON grep virtualenv git"
 REQUIRED_PIP_PKGS="gym-retro \
                    ipykernel \
 									 numpy \
-									 scipy \
-									 tensorflow \
-									 tflearn \
 									"
 
 REQUIRED_GAMES="SonicTheHedgehog-Genesis SonicTheHedgehog2-Genesis SonicAndKnuckles3-Genesis"
