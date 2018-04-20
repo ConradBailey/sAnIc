@@ -26,6 +26,7 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 * [Contribute to the Project](https://gitlab.com/sAnIc-ND/sAnIc#contribute-to-the-project)
 * [Work on the Website](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)
 * [Start a Jupyter Notebook in the Virtualenv](https://gitlab.com/sAnIc-ND/sAnIc#start-a-jupyter-notebook-in-the-virtualenv)
+* [Creating an Agent](https://gitlab.com/sAnIc-ND/sAnIc#creating-an-agent)
 * [Evaluate an Agent Locally](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)
 * [Evaluate an Agent On Many Tests](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-on-many-tests)
 * [Submit a Job](https://gitlab.com/sAnIc-ND/sAnIc#submit-a-job)
@@ -127,6 +128,98 @@ creating the kernel it can be reused at will.
    kernel we created earlier, giving you access to the virtualenv's
    resources.
 5. Use the notebook!
+
+### Creating an Agent ###
+First and foremost, look at
+(`agents/example/`)[https://gitlab.com/sAnIc/sAnIc/tree/master/agents/example]
+for reference on the most basic implementation of an agent.
+
+There are two agents to create. A remote version requires a remote
+environment, e.g. something provided by the contest. **Only remote
+agents** are suited for use with `local_eval.py` and
+`submit_agent.py`. Local agents are useful when prototyping and
+debugging.
+
+1. Setup `main()`:
+   * Local:
+	 1.
+		>>>
+		if __name__ == '__main__':
+		   main()`
+	    >>>
+	 2.
+		>>>
+		def main():`
+		  ...
+		>>>
+   * Remote:
+	 1.
+		>>>
+		import gym_remote.exceptions as gre
+		>>>
+	 2.
+		>>>
+		if __name__ == '__main__':
+          try:
+            main()
+          except gre.GymRemoteError as e:
+            print('exception', e)
+		>>>
+	 3.
+		>>>
+		def main():
+		  ...
+		>>>
+2. Make the environment:
+   * Local:
+	 1.
+		>>>
+		from retro_contest.local import make
+		>>>
+	 2.
+		>>>
+		env = make(game = 'some_game_name', state = 'some_state_of_that_game')
+		>>>
+   * Remote:
+	 1.
+		>>>
+		import gym_remote.client as grc
+		>>>
+	  2.
+		>>>
+		env = grc.RemoteEnv('tmp/sock')
+		>>>
+3. Reset the environment and start the game loop
+   >>>
+   # This refreshes the environment, e.g. score=0 and Sonic is sent to
+   # the beginning of the level
+   env.reset()
+
+   while True:
+     # Create the action
+     action = env.action_space.sample()
+
+	 # Perform the action
+     ob, reward, done, _ = env.step(action)
+
+	 # Check whether the action resulted in a death, timeout, or
+     # completed the level
+	 if done:
+	   print('episode complete')
+	   # refresh the episode for the next loop iteration
+       env.reset()
+   >>>
+4. In your local scripts, after `env.step()` you can add
+   `env.render()` to actually see the game being played. **DO NOT**
+   use this line in remote agents or when doing long tests; rendering
+   the environment drastically slows the execution of the agent.
+5. The fourth item in the tuple returned by `env.step()` is called
+   `info`. It provides some context dependent information about the
+   state of the game. It is **NOT** available in testing, but can be
+   used for training. It would be peculiar to use information for
+   training that's not available in testing, but then again that's
+   transfer learning, so be creative!
+
 
 ### Evaluate an Agent Locally ###
 This process will mimic the remote environment used for official

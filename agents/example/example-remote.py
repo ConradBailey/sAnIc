@@ -1,9 +1,7 @@
 import gym_remote.exceptions as gre
 import gym_remote.client as grc
 
-
 def main():
-  print('connecting to remote environment')
   env = grc.RemoteEnv('tmp/sock')
   print('starting episode')
   env.reset()
@@ -20,3 +18,4 @@ if __name__ == '__main__':
     main()
   except gre.GymRemoteError as e:
     print('exception', e)
+
