@@ -18,8 +18,8 @@ PROG_NAME=$(basename "$0")
 USAGE="Usage: $PROG_NAME [ROM Directory]"
 
 # Constants #
-PYTHON=python3
-PIP=pip3
+PYTHON=python3.6
+PIP=pip3.6
 
 REQUIRED_BINS="$PIP $PYTHON grep virtualenv git"
 REQUIRED_PIP_PKGS="https://storage.googleapis.com/gym-retro/builds/gym_retro-0.5.3-cp36-cp36m-linux_x86_64.whl \

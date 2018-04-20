@@ -11,10 +11,10 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 
 #### Dependencies ####
 * python 3.6
-* pip3
-* virtualenv
+* pip 3.6
+* virtualenv (download via `$ pip3.6 install virtualenv`)
 * git
-* docker
+* docker (Check out this link for (Ubuntu instructions)[https://docs.docker.com/install/linux/docker-ce/ubuntu/])
 
 #### Requirements ####
 * 64-bit Architecture
