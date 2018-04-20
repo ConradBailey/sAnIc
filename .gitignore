@@ -4,3 +4,4 @@ retro_contest_credentials.dontcommit
 \#*
 .\#*
 roms
+__pycache__
