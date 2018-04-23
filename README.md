@@ -45,8 +45,8 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
   `tcsh`, `ksh`, etc. The scripts are targeted at POSIX `sh`, but
   using `bash` is the safest choice.
 * You're developing in Python 3. Don't use Python 2. *Dont use `pip`
-  or `pip2`; _use `pip3`_* just to be explicitly compliant. Use
-  `#!/usr/bin/env python3` for your shebangs.
+  or `pip2`; _use `pip3.6`_* just to be explicitly compliant. Use
+  `#!/usr/bin/env python3.6` for your shebangs.
 * You've installed the dependencies yourself. You need how to
   figure this out for your own environment, e.g. Ubuntu will need
   calls to `$ sudo apt-get install` or something.
@@ -64,7 +64,7 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
    repository, and install those tools as well.
 3. Run `$ source venv/bin/activate`. This imports the virtualenv
    environment into your shell instance and should prepend `(venv)` to
-   your shell prompt. That means anything installed with `pip3` will
+   your shell prompt. That means anything installed with `pip3.6` will
    be local to this virtualenv and can be cleanly swept away with `rm
    -r venv`. To get out of this environment when you're done working
    on the project run `deactivate`, it's that simple.
