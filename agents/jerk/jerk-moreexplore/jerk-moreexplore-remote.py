@@ -52,17 +52,11 @@ class History:
     max_i = np.argmax(self.rewards)
     return Sequence(self.actions[:max_i+1], [self.rewards[max_i]])
 
-# Assume the inputs are
-#   game = argv[0]
-#   state = argv[1]
-#   max_timesteps = argv[2]
+
 def main(argv = sys.argv[1:]):
   global EXPLOIT_BIAS
 
-  # Assumed inputs are as follows
-  game = argv[0]
-  state = argv[1]
-  max_timesteps = int(argv[2])
+  max_timesteps = float("inf")
 
   env = grc.RemoteEnv('tmp/sock')
   env = TrackedEnv(env, max_timesteps)
