@@ -7,7 +7,6 @@ import os
 import sys
 import argparse
 import json
-from pprint import pprint
 
 def make_rewards(exp_name, df, out_dir):
   ax = df.plot.line(x='Timesteps', y='Mean Reward', color='blue', legend=False)
@@ -69,6 +68,7 @@ def make_webpage(exp_name, out_dir, observed_stats):
   page += '<div id=stats>\n'
   page += '  <h2>Stats</h2>\n'
   page += '  <table border="1">\n'
+  page += '    <tr><td><b>Number of</br>Episodes</b></td><td colspan="2">{}</td></tr>'.format(observed_stats['Number of Episodes'])
   page += '    <tr><td></td>'
   for category in categories:
     page += '<td><b>{}</b></td>'.format(category)
