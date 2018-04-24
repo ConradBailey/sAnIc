@@ -7,7 +7,6 @@ import os
 import sys
 import argparse
 import json
-from pprint import pprint
 
 def make_rewards(exp_name, df, out_dir):
   ax = df.plot.line(x='Timesteps', y='Mean Reward', color='blue', legend=False)
