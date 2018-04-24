@@ -38,7 +38,8 @@ def test_agent(docker_tag, game, state, results_dir, timestep_limit):
 
 def evaluate(args):
   docker_tag = make_docker_tag(args.name, args.version)
-  build_agent(args.path, docker_tag)
+  if args.path:
+    build_agent(args.path, docker_tag)
   return test_agent(docker_tag, args.game, args.state,
                     args.results_dir, args.timestep_limit)
 
@@ -50,7 +51,7 @@ def init_parser():
   parser.add_argument('state', type=str, help='Name of the game state that the agent will be evaluated on')
   parser.add_argument('timestep_limit', type=str, help='Number of timesteps considered during evaluation')
   parser.add_argument('--path', type=str, help='Path to the agent python script')
-  parser.add_argument('--results_dir','-r', type=str, default='results', help='Path to output results')
+  parser.add_argument('--results-dir','-r', type=str, default='results', help='Path to output results')
   return parser
 
 def main(argv=sys.argv[1:]):
