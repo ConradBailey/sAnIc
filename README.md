@@ -30,6 +30,7 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 * [Start a Jupyter Notebook in the Virtualenv](https://gitlab.com/sAnIc-ND/sAnIc#start-a-jupyter-notebook-in-the-virtualenv)
 * [Creating an Agent](https://gitlab.com/sAnIc-ND/sAnIc#creating-an-agent)
 * [Evaluate an Agent Locally](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)
+* [Analyze Local Evaluation Results](https://gitlab.com/sAnIc-ND/sAnIc#analyze-local-evaluation-results)
 * [Evaluate an Agent On Many Tests](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-on-many-tests)
 * [Submit a Job](https://gitlab.com/sAnIc-ND/sAnIc#submit-a-job)
 * [Convert `.bk2` Files to `.mp4` Videos](https://gitlab.com/sAnIc-ND/sAnIc#convert-.bk2-files-to-.mp4-videos)
@@ -270,7 +271,9 @@ the server.
    + `monitor.csv`: Every row represents a trial the evaluation
      performed. The column `r` is the _reward_ for that trial, `l` is
      the number of steps it took to complete the trial, and `t` is the
-     wall-clock time it took to complete the trial.
+     wall-clock time it took to complete the trial. This file can be
+     automatically
+     [analyzed](https://gitlab.com/sAnIc-ND/sAnIc#analyze-local-evaluation-results).
    + `bk2` is a directory containing visual information for each trial
      that can
      be
@@ -279,6 +282,28 @@ the server.
      `root`, so manipulating or removing this file will require root
      permissions, but there is nothing inherently root-worthy in this
      directory.
+
+### Analyze Local Evaluation Results ###
+The local evaluation script `local_eval.py` produces a results
+directory, and in that directory you will find `monitor.csv` (see step
+5 [here](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)
+for full details). This file is the key to statistical and graphical
+analysis. Run `$ ./analyze_monitor.py monitor_path "Title of
+Experiment"` to produce analytical output. This will leave four files
+in the directory containing `monitor_path`.
++ `stats.json`: Obviously this is a serialized JSON object. In it you
+  will find descriptive statistics like mean, median, stddev,
+  etc. regarding rewards and timestep lengths. This can be ingested
+  with
+  [`json.load()`](https://docs.python.org/3.6/library/json.html?highlight=json#json.load).
++ `rewards.svg`: This is an `svg` depicting two super-imposed plots: a
+  scatter plot of the rewards of every episode, and a line plot of the
+  mean reward at any given timestep. This can be opened in a web
+  browser.
++ `histogram.svg`: This is a 10-bin histogram of all rewards. This can
+  be opened in a web browser.
++ `index.html`: This is a webpage displaying the experiment title,
+  `stats.json` as a table, `rewards.svg`, and `histogram.svg`.
 
 ### Evaluate an Agent On Many Tests ###
 Evaluating an agent
