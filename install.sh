@@ -153,5 +153,10 @@ for GAME in $REQUIRED_GAMES ; do
 		fi
 done
 
-exit 0
+# Add scripts to venv path
+LOCAL_SCRIPTS="analyze_monitor.py local_eval.py submit_agent.py test_agent.py"
+for SCRIPT in $LOCAL_SCRIPTS; do
+		safe_run "Linking $SCRIPT to venv/bin" "ln -sf $PWD/$SCRIPT $PWD/venv/bin" "Could not link $SCRIPT to venv/bin"
+done
 
+exit 0

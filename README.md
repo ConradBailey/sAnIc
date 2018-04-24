@@ -237,7 +237,7 @@ the server.
    the name `retro_contest_credentials.dontcommit` then it will be
    safely ignored thanks to `.gitignore`. If you guys are paranoid,
    then we can work out some encryption, but for now just be careful.
-4. Run `$ ./local_eval.py [--results_dir RESULTS_DIR] [--path PATH] name version game state timestep_limit`'.
+4. Run `$ local_eval.py [--results_dir RESULTS_DIR] [--path PATH] name version game state timestep_limit`'.
    This will
    + Create a Docker container for your agent at `PATH`.
    + Tag that container as `team_member_name/name:version`. The `name`
@@ -288,7 +288,7 @@ The local evaluation script `local_eval.py` produces a results
 directory, and in that directory you will find `monitor.csv` (see step
 5 [here](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)
 for full details). This file is the key to statistical and graphical
-analysis. Run `$ ./analyze_monitor.py monitor_path "Title of
+analysis. Run `$ analyze_monitor.py monitor_path "Title of
 Experiment"` to produce analytical output. This will leave four files
 in the directory containing `monitor_path`.
 + `stats.json`: Obviously this is a serialized JSON object. In it you
@@ -312,7 +312,7 @@ on
 be great for debugging, but it's not really what we need for
 analytics. In the classic data science framework we need to run our
 agents on test sets, and here's how.
-1. Run `$ ./test_agent [--path PATH] [--results_dir RESULTS_DIR] [--nprocs NPROCS] tests_file timestep_limit name version`.
+1. Run `$ test_agent.py [--path PATH] [--results_dir RESULTS_DIR] [--nprocs NPROCS] tests_file timestep_limit name version`.
    Every line of the `tests_file` is an environment to test the agent
    in; a game title followed by a state name, separated by white space
    (here's
@@ -338,7 +338,7 @@ high score!
 1. [Evaluate your agent locally](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally). This
    ensures there are no runtime bugs and you don't waste resources
    uploading doomed agents to be evaluated.
-2. Run `$ ./submit_agent.py [--path PATH] name version`. The `name`
+2. Run `$ submit_agent.py [--path PATH] name version`. The `name`
    and `version` designate the tag for Docker container (
    see
    [here](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)).
