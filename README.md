@@ -32,6 +32,7 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 * [Evaluate an Agent Locally](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)
 * [Analyze Local Evaluation Results](https://gitlab.com/sAnIc-ND/sAnIc#analyze-local-evaluation-results)
 * [Evaluate an Agent On Many Tests](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-on-many-tests)
+* [Analyze a Batch of Results](https://gitlab.com/sAnIc-ND/sAnIc#analyze-a-batch-of-results)
 * [Submit a Job](https://gitlab.com/sAnIc-ND/sAnIc#submit-a-job)
 * [Convert `.bk2` Files to `.mp4` Videos](https://gitlab.com/sAnIc-ND/sAnIc#convert-bk2-files-to-mp4-videos)
 * [Resources](https://gitlab.com/sAnIc-ND/sAnIc#resources)
@@ -302,7 +303,7 @@ in the directory containing `monitor_path`.
   browser.
 + `histogram.svg`: This is a 10-bin histogram of all rewards. This can
   be opened in a web browser.
-+ `index.html`: This is a webpage displaying the experiment title,
++ `analysis.html`: This is a webpage displaying the experiment title,
   `stats.json` as a table, `rewards.svg`, and `histogram.svg`.
 
 ### Evaluate an Agent On Many Tests ###
@@ -326,6 +327,24 @@ agents on test sets, and here's how.
    results, but inside this directory is many more directories. Each
    subdirectory holds the output of the experiment corresponding to
    the subdirectory name.
+
+### Analyze a Batch of Results ###
+Much like analyzing a [single result](https://gitlab.com/sAnIc-ND/sAnIc#analyze-local-evaluation-results), this process is done with a
+script, `compare_monitors.py`. Run `$ compare_monitors.py output_dir comparison_name name1 path1 name2 path2...` 
+to produce results. The arguments are as follows
+* `output_dir`: Location where results will be stored.
+* `comparison_name`: Used to title the figures and pages generated. It
+  should characterize the intent behind comparing these results.
+* `name1 path1 name2 path2...`: This is a list of experiment names and
+  their corresponding `monitor.csv`s. The experiment names should
+  characterize the data in their `monitor.csv` in the context of the
+  comparison. These names will be used for legend labels in the
+  figures and pages generated.
+
+This will produce a `histogram.svg`, `rewards.svg`, and
+`analysis.html` in `output_dir` that correspond to their single result
+counterparts, but compiles the data from all of the `monitor.csv`s
+under consideration.
 
 ### Submit a Job ###
 Submitting a job means packaging some agent up in a Docker container
