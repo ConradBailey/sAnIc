@@ -9,11 +9,15 @@ you are a visitor looking for information about our work, visit
 the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 
 #### Dependencies ####
-* python 3.6
-* pip 3.6
-* virtualenv (download via `$ pip3.6 install virtualenv`)
-* git
-* docker
+* [python 3.6](https://www.python.org/downloads/)
+  * [Mac: See "macOS Users' section halfway down](https://www.python.org/downloads/release/python-365/)
+* [pip 3.6](https://pypi.org/project/pip/)
+* [virtualenv](https://virtualenv.pypa.io/en/stable/) (download via `$ pip3.6 install virtualenv`)
+* [git](https://git-scm.com/)
+* [GNU Parallel](https://www.gnu.org/software/parallel/)
+  * [Mac Instructions](http://brewformulas.org/Parallel)
+  * Everyone Else: See ['Downloading GNU Parallel' section](https://www.gnu.org/software/parallel/)
+* [docker](https://www.docker.com/)
   * [Ubuntu instructions](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
   * [Mac Instructions](https://store.docker.com/editions/community/docker-ce-desktop-mac)
 
@@ -144,7 +148,10 @@ the contest.
   `#!/usr/bin/env python3.6` for your shebangs.
 * You've installed the dependencies yourself. You need how to
   figure this out for your own environment, e.g. Ubuntu will need
-  calls to `$ sudo apt-get install` or something.
+  calls to `$ sudo apt-get install` or something. There are some helpful
+  links and hints in
+  the [Dependencies](https://gitlab.com/sAnIc-ND/sAnIc#dependencies)
+  section.
 
 ### Contribute to the Project ###
 Things can get really messy with dependencies and outside libraries
