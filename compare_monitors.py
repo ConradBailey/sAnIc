@@ -93,7 +93,8 @@ def compare(output_dir, comparison_name, experiments):
 
   for df in dfs:
     df['Mean Reward'] = df['r'].expanding().mean()
-    df['Timesteps'] = df['l'].expanding().sum()
+    if 'Timesteps' not in list(df):
+      df['Timesteps'] = df['l'].expanding().sum()
 
   ax = make_mean_rewards(output_dir, comparison_name, labels, dfs)
   ax.get_figure().savefig(os.path.join(output_dir,'rewards.svg'), bbox_inches='tight')

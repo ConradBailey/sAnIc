@@ -329,8 +329,22 @@ agents on test sets, and here's how.
    the subdirectory name.
 
 ### Analyze a Batch of Results ###
-Much like analyzing a [single result](https://gitlab.com/sAnIc-ND/sAnIc#analyze-local-evaluation-results), this process is done with a
-script, `compare_monitors.py`. Run `$ compare_monitors.py output_dir comparison_name name1 path1 name2 path2...` 
+The first thing you might want to do is merge many `monitor.csv` files
+into a single, large `monitor.csv` file. For example, if you evaluated
+an agent 30 times on the same level with the same parameters, then you
+are probably interested in the aggregate performance of this agent and
+not interested in the evaluations individually. To do this run `$ merge_monitors.py path1 path2...`
+where `pathX` is a path to some `monitor.csv`. By default the result
+is printed, but the `-o` flag can be used to designate an output
+filename. The actual merge process is too complicated for this
+document, but the output has the properties of a **single** agent
+performing _all_ of the actions that the constituent agents performed.
+
+Much like analyzing
+a
+[single result](https://gitlab.com/sAnIc-ND/sAnIc#analyze-local-evaluation-results),
+analyzing a batch of `monitor.csv` files is done with a script,
+`compare_monitors.py`. Run `$ compare_monitors.py output_dir comparison_name name1 path1 name2 path2...`
 to produce results. The arguments are as follows
 * `output_dir`: Location where results will be stored.
 * `comparison_name`: Used to title the figures and pages generated. It
