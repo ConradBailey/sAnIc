@@ -87,9 +87,9 @@ def make_webpage(title, list_of_stats):
   return page
 
 
-def compare(output_dir, comparison_name, experiments):
-  dfs = [pd.read_csv(path) for name, path in experiments]
-  labels = [name for name, path in experiments]
+def compare(output_dir, comparison_name, monitors):
+  dfs = [pd.read_csv(path) for name, path in monitors]
+  labels = [name for name, path in monitors]
 
   for df in dfs:
     df['Mean Reward'] = df['r'].expanding().mean()
@@ -111,7 +111,7 @@ def init_parser():
   parser = argparse.ArgumentParser(description="Statistically and graphically compare monitor.csv files")
   parser.add_argument('output_dir', type=str, help='Directory where output files will be created')
   parser.add_argument('comparison_name', type=str, help='A title describing this comparison')
-  parser.add_argument('experiments', type=str, nargs='+', help='Alternating list of experiment names and their associated monitor.csv path, e.g. "exp name 1" path1 "exp name 2" path2 ... ')
+  parser.add_argument('monitors', type=str, nargs='+', help='Alternating list of titles and their associated monitor.csv path, e.g. "title 1" path1 "title 2" path2 ... ')
   return parser
 
 
@@ -120,10 +120,10 @@ def main(argv=sys.argv[1:]):
   args = parser.parse_args(argv)
 
   if (len(args.experiments) % 2) != 0:
-    raise ValueError("Odd number of experiment args detected. Every experiment name requires a monitor.csv path")
+    raise ValueError("Odd number of monitor args detected. Every title requires a monitor.csv path")
 
   sys.exit(compare(args.output_dir, args.comparison_name,
-                   list(zip(args.experiments[::2],args.experiments[1::2]))))
+                   list(zip(args.monitors[::2],args.monitors[1::2]))))
 
 
 if __name__ == "__main__":

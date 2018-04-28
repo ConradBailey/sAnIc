@@ -8,26 +8,26 @@ import sys
 import argparse
 import json
 
-def make_rewards(exp_name, df):
+def make_rewards(monitor_title, df):
   ax = df.plot.line(x='Timesteps', y='Mean Reward', color='blue', legend=False)
   ax = df.plot.scatter(x='Timesteps', y='r', ax=ax, color='green', legend=False)
-  ax.set_title('{}: Rewards vs Timesteps'.format(exp_name))
+  ax.set_title('{}: Rewards vs Timesteps'.format(monitor_title))
   ax.set_ylabel('Rewards')
   ax.legend(labels=['mean','data'], loc='upper center', bbox_to_anchor=(.8,-.1), ncol=2)
   return ax
 
 
-def make_hists(exp_name, df):
+def make_hists(monitor_title, df):
   ax = df['r'].to_frame().plot.hist(range=(0,10000), grid=True, ax=None, legend=False)
   ax.set_xlabel('Episodic Reward')
   ax.set_xticks(range(0,11000,1000))
-  ax.set_title('{}: Rewards Histogram'.format(exp_name))
+  ax.set_title('{}: Rewards Histogram'.format(monitor_title))
   return ax
 
 
-def make_stats(exp_name, df):
+def make_stats(monitor_title, df):
   stats = {
-    'Title': exp_name,
+    'Title': monitor_title,
     'Number of Episodes': len(df['r']),
     'Reward': {
       'Total': float(df['r'].sum()),
@@ -51,11 +51,11 @@ def make_stats(exp_name, df):
   return stats
 
 
-def make_webpage(exp_name, observed_stats):
+def make_webpage(monitor_title, observed_stats):
   categories = ['Reward','Timesteps']
   stats = ['Total', 'Max', 'Min', 'Mean', 'Median', 'Std Dev', 'Variance']
 
-  page = '<h1>{}</h1>\n\n'.format(exp_name)
+  page = '<h1>{}</h1>\n\n'.format(monitor_title)
 
   # Stats
   page += '<div id=stats>\n'
@@ -84,25 +84,25 @@ def make_webpage(exp_name, observed_stats):
 
 
 def analyze(args):
-  monitor_path = args.monitor_path
+  monitor_path = args.path
   out_dir, _ = os.path.split(monitor_path)
 
-  exp_name = args.experiment_name
+  monitor_title = args.experiment_name
 
   df = pd.read_csv(monitor_path)
   df['Mean Reward'] = df['r'].expanding().mean()
   df['Timesteps'] = df['l'].expanding().sum()
 
-  ax = make_rewards(exp_name, df)
+  ax = make_rewards(monitor_title, df)
   ax.get_figure().savefig(os.path.join(out_dir,'rewards.svg'), bbox_inches='tight')
 
-  ax = make_hists(exp_name, df)
+  ax = make_hists(monitor_title, df)
   ax.get_figure().savefig(os.path.join(out_dir,'histogram.svg'))
 
-  stats = make_stats(exp_name, df)
+  stats = make_stats(monitor_title, df)
   json.dump(stats, open(os.path.join(out_dir, 'stats.json'), 'w'))
 
-  page = make_webpage(exp_name, stats)
+  page = make_webpage(monitor_title, stats)
   open(os.path.join(out_dir, 'analysis.html'), 'w').write(page)
 
 def init_parser():

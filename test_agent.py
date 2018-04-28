@@ -34,14 +34,14 @@ def test(args):
     pool.map(Tester(docker_tag, args.results_dir, args.timestep_limit), tests)
 
 def init_parser():
-  parser = argparse.ArgumentParser(description="Evaluate an agent against a set of environments locally")
-  parser.add_argument('tests_file', type=str, help="List of games and states to test against. One game and state per line, separated by whitespace")
-  parser.add_argument('timestep_limit', type=str, help="Number of timesteps considered during evaluation")
+  parser = argparse.ArgumentParser(description="Run a trial with some agent for every state in a test set")
+  parser.add_argument('tests_file', type=str, help="List of states to test on. One game and state per line, separated by whitespace")
+  parser.add_argument('timestep_limit', type=str, help="Timestep limit for the trial")
   parser.add_argument('name', type=str, help='Name of agent')
   parser.add_argument('version', type=str, help='Version of agent')
   parser.add_argument('--path','-p', type=str, help='Path to the agent python script')
   parser.add_argument('--results_dir','-r', type=str, default='results', help='Path to output results')
-  parser.add_argument('--nprocs','-n', type=int, default=1, help='Number of tests to run in parallel')
+  parser.add_argument('--nprocs','-n', type=int, default=1, help='Number of trials to run in parallel')
   return parser
 
 def main(argv=sys.argv[1:]):
