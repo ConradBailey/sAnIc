@@ -106,7 +106,7 @@ def analyze(args):
   open(os.path.join(out_dir, 'analysis.html'), 'w').write(page)
 
 def init_parser():
-  parser = argparse.ArgumentParser(description="Statistically analyze a monitor.csv produced by local_eval.py")
+  parser = argparse.ArgumentParser(description="Statistically analyze a monitor.csv")
   parser.add_argument('monitor_path', type=str, help='Location of monitor.csv file to analyze')
   parser.add_argument('experiment_name', type=str, help='Name of the experiment that produced the results')
   return parser
