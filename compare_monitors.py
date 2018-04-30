@@ -108,7 +108,7 @@ def compare(output_dir, comparison_name, experiments):
 
 
 def init_parser():
-  parser = argparse.ArgumentParser(description="Statistically and graphically compare monitor.csv files produced by local_eval.py")
+  parser = argparse.ArgumentParser(description="Statistically and graphically compare monitor.csv files")
   parser.add_argument('output_dir', type=str, help='Directory where output files will be created')
   parser.add_argument('comparison_name', type=str, help='A title describing this comparison')
   parser.add_argument('experiments', type=str, nargs='+', help='Alternating list of experiment names and their associated monitor.csv path, e.g. "exp name 1" path1 "exp name 2" path2 ... ')

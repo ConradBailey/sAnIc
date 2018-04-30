@@ -29,8 +29,8 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 * [Work on the Website](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)
 * [Start a Jupyter Notebook in the Virtualenv](https://gitlab.com/sAnIc-ND/sAnIc#start-a-jupyter-notebook-in-the-virtualenv)
 * [Creating an Agent](https://gitlab.com/sAnIc-ND/sAnIc#creating-an-agent)
-* [Evaluate an Agent Locally](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)
-* [Analyze Local Evaluation Results](https://gitlab.com/sAnIc-ND/sAnIc#analyze-local-evaluation-results)
+* [Simulate an Agent Locally](https://gitlab.com/sAnIc-ND/sAnIc#simulate-an-agent-locally)
+* [Analyze Results](https://gitlab.com/sAnIc-ND/sAnIc#analyze-results)
 * [Evaluate an Agent On Many Tests](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-on-many-tests)
 * [Analyze a Batch of Results](https://gitlab.com/sAnIc-ND/sAnIc#analyze-a-batch-of-results)
 * [Submit a Job](https://gitlab.com/sAnIc-ND/sAnIc#submit-a-job)
@@ -135,95 +135,84 @@ creating the kernel it can be reused at will.
 
 ### Creating an Agent ###
 First and foremost, look at
-[`agents/example/`](https://gitlab.com/sAnIc-ND/sAnIc/tree/master/agents/example)
+[`agents/example.py`](https://gitlab.com/sAnIc-ND/sAnIc/tree/master/agents/example.py)
 for reference on the most basic implementation of an agent.
 
-There are two agents to create.
-* **Local**: Local agents work with a locally administered
-  environemnt. They are useful when prototyping and debugging. Use
-  `print()` and `env.render()` in these agents liberally.
-* **Remote**: A remote agent works with a remotely administered
-  environment, e.g. something provided by the contest. **Only remote
-  agents** are suited for use with `local_eval.py` and
-  `submit_agent.py`. Removing slow IO tasks like `print()` statements
-  will greatly increase speed.
-1. Setup `main()`:
-   * Local:
+All agent modules must live directly in
+the [`agents`](https://gitlab.com/sAnIc-ND/sAnIc/blob/master/agents)
+folder, and not in any subdirectory, to the packaging necessary for
+deployment. All agents need to inherit somewhere in their lineage from
+the `Agent` class found
+in
+[`agent.py`](https://gitlab.com/sAnIc-ND/sAnIc/blob/master/agents/agent.py). This
+provides the basic functionalities, `main` implementation, and command
+line parsing tools. There are 4 basic parts to an agent.
 
-        ```python
-        def main():
-        	...
-        if __name__ == '__main__':
-        	main()
-        ```
-   * Remote:
+1. **Agent Class Definition and `__init__`**
+   * Don't forget the shebang on the first line `#!/usr/bin/env python3.6`
+   * All agent class definitions should look like  
+	 `class AgentBeingDefined(AgentOrAgentChild)`. Multiple inheritance can be useful
+     here
+     (see
+     [agents/jerk-exploreexploit.py](https://gitlab.com/sAnIc-ND/sAnIc/blob/master/agents/jerk_exploreexploit.py)).
+   * `__init__` may be inherited if the agent being defined does not
+     require any more parameters than its parents. However, if new
+     parameters are being introduced by the agent being defined, then
+     `__init__` must be implemented to handle them.
+   * `__init__` should first take as arguments the necessities for
+     agent creation (`is_remote`, `game`, `state`, `max_timesteps`,
+     `do_render`, `do_monitor`) followed by any parameters necessary
+     for the parent `__init__` method, finally ending with parameters
+     specific to the agent being defined.
+	 * The first line in the body of `__init__` should be a call to
+       the parent class `__init__` that looks like  
+	   `super().__init__(is_remote, game, state, max_timesteps, env_wrapper, do_pause, do_render, do_monitor, any_other_parent_args...)`
+	   where `env_wrapper` is some class that maintains useful
+       environment information for the agent being defined
+       (see
+       [`agents/jerk.py`'s use of `HistoriedEnv`](https://gitlab.com/sAnIc-ND/sAnIc/blob/master/agents#jerk)). The
+       default value (`BasicEnv`) will suffice in most cases.
+	 * `__init__` should then take care of any initialization
+       procedures specific to the agent being defined.
+2. **The `play()` Method**
+   * This method may be inherited from a concrete class, but cannot be
+     inherited from the abstract `Agent` class.
+   * It should be an **infinite** loop that essentially plays the
+     game. Remember that `env.reset()` must be called once before any
+     calls to `env.step()`, and `env.reset()` must be called when
+     `done` is `True`.
+3. **The `init_parser()` Method**
+	* This method may be inherited if no extra parameters are
+     necessary for the agent being defined.
+	* The first line in this methods body should be a call to the
+     parent definition that looks like  
+	 `parser = super().init_parser("description of class being defined")`
+	* Finally you should add parameters specific to the agent being
+     defined with calls to `parser.add_argument` and finally `return
+     parser`.
+4. **`main()` Invocation**
+   * You can rely on `Agent`'s `main()` static method. The bottom of
+     your agent should look like
 
-        ```python
-        import gym_remote.exceptions as gre
+	     ```python
+		 if __name__ == '__main__':
+		   try:
+		     AgentBeingDefined.main(AgentBeingDefined)
+		   except gre.GymRemoteError as e:
+		     print('exception', e)
+		 ```
+   * This will call the `main` inherited from `Agent` with
+     `AgentBeingDefined` as an argument so that the `main()` body will
+     instantiate an agent of type `AgentBeingDefined` and call that
+     instantiation's `play()` method.
 
-        def main():
-          ...
+Once all of that is done you can run your agent right from the command
+line with `$ ./agentyoudefined.py`. `Agent` provides some nice flags
+like `--render` to watch and control the agent at work and `--monitor`
+to produce a `monitor.csv`. See `$ ./agentyoudefined.py --help` for
+the complete list.
 
-        if __name__ == '__main__':
-          try:
-            main()
-          except gre.GymRemoteError as e:
-            print('exception', e)
-        ```
-2. Make the environment:
-   * Local:
-
-        ```python
-        from retro_contest.local import make
-
-        def main():
-          ...
-          env = make(game = 'some_game_name', state = 'some_state_of_that_game')
-          ...
-        ```
-   * Remote:
-
-        ```python
-        import gym_remote.client as grc
-
-        def main():
-          ...
-          env = grc.RemoteEnv('tmp/sock')
-          ...
-        ```
-3. Reset the environment and start the game loop
-
-    ```python
-    # This refreshes the environment, e.g. score=0 and Sonic is sent to
-    # the beginning of the level
-    env.reset()
-
-    while True:
-      # Create the action
-      action = env.action_space.sample()
-
-      # Perform the action
-      ob, reward, done, _ = env.step(action)
-
-      # Check whether the action resulted in a death, timeout, or
-      # completed the level
-      if done:
-        # refresh the episode for the next loop iteration
-        env.reset()
-    ```
-4. In your local scripts, after `env.step()` you can add
-   `env.render()` to actually see the game being played. **DO NOT**
-   use this line in remote agents or when doing long tests; rendering
-   the environment drastically slows the execution of the agent.
-5. The fourth item in the tuple returned by `env.step()` is called
-   `info`. It provides some context dependent information about the
-   state of the game. It is **NOT** available in testing, but can be
-   used for training. It would be peculiar to use information for
-   training that's not available in testing, but then again that's
-   transfer learning, so be creative!
-
-
-### Evaluate an Agent Locally ###
+### Simulate an Agent Locally ###
 This process will mimic the remote environment used for official
 scoring when submitting a job.  It is important to do this
 before
@@ -238,18 +227,17 @@ the server.
    the name `retro_contest_credentials.dontcommit` then it will be
    safely ignored thanks to `.gitignore`. If you guys are paranoid,
    then we can work out some encryption, but for now just be careful.
-4. Run `$ local_eval.py [--results_dir RESULTS_DIR] [--path PATH] name version game state timestep_limit`'.
+4. Run `$ local_eval.py [--results_dir RESULTS_DIR] [--args ARGS] path name version game state timestep_limit`'.
    This will
-   + Create a Docker container for your agent at `PATH`.
+   + Create a Docker container with the agent at `path` installed as a Python package.
    + Tag that container as `team_member_name/name:version`. The `name`
      should characterize the implementation (e.g. DNN for deep neural
      net) and `version` is a convenient way to iteratively experiment
      on an implementation.
    + Simulate a contest run using the new container for the agent and
-     the specified game and state for the environment.
-
-	 The `--path` argument is not necessary if the container described
-     by `name` and `version` has already been built.
+     the specified game and state for the environment. It will pass on
+     `--args` if provided to the agent invocation, like parameter
+     values (`--remote` is automatically provided).
 
      The `timestep_limit` determines how many time steps
      (i.e. calls to `env.step()`) the evaluation is alloted. It doesn't
@@ -274,7 +262,7 @@ the server.
      the number of steps it took to complete the trial, and `t` is the
      wall-clock time it took to complete the trial. This file can be
      automatically
-     [analyzed](https://gitlab.com/sAnIc-ND/sAnIc#analyze-local-evaluation-results).
+     [analyzed](https://gitlab.com/sAnIc-ND/sAnIc#analyze-results).
    + `bk2` is a directory containing visual information for each trial
      that can
      be
@@ -284,9 +272,9 @@ the server.
      permissions, but there is nothing inherently root-worthy in this
      directory.
 
-### Analyze Local Evaluation Results ###
-The local evaluation script `local_eval.py` produces a results
-directory, and in that directory you will find `monitor.csv` (see step
+### Analyze Results ###
+`local_eval.py` and `$ ./whateveragent.py --monitor` produce a file
+called `monitor.csv` (see step
 5 [here](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)
 for full details). This file is the key to statistical and graphical
 analysis. Run `$ analyze_monitor.py monitor_path "Title of
@@ -330,19 +318,20 @@ agents on test sets, and here's how.
 
 ### Analyze a Batch of Results ###
 The first thing you might want to do is merge many `monitor.csv` files
-into a single, large `monitor.csv` file. For example, if you evaluated
-an agent 30 times on the same level with the same parameters, then you
-are probably interested in the aggregate performance of this agent and
-not interested in the evaluations individually. To do this run `$ merge_monitors.py path1 path2...`
-where `pathX` is a path to some `monitor.csv`. By default the result
-is printed, but the `-o` flag can be used to designate an output
-filename. The actual merge process is too complicated for this
-document, but the output has the properties of a **single** agent
-performing _all_ of the actions that the constituent agents performed.
+into a single, large `monitor.csv` file. For example, if you ran 30
+trials of an agent on the same level with the same parameters, then
+you are probably interested in the aggregate performance of this agent
+and not interested in the trials individually. To do this run `$
+merge_monitors.py path1 path2...` where `pathX` is a path to some
+`monitor.csv`. By default the result is printed, but the `-o` flag can
+be used to designate an output filename. The actual merge process is
+too complicated for this document, but the output has the properties
+of a **single** agent performing _all_ of the actions that the
+constituent agents performed.
 
 Much like analyzing
 a
-[single result](https://gitlab.com/sAnIc-ND/sAnIc#analyze-local-evaluation-results),
+[single result](https://gitlab.com/sAnIc-ND/sAnIc#analyze-results),
 analyzing a batch of `monitor.csv` files is done with a script,
 `compare_monitors.py`. Run `$ compare_monitors.py output_dir comparison_name name1 path1 name2 path2...`
 to produce results. The arguments are as follows
@@ -361,25 +350,9 @@ counterparts, but compiles the data from all of the `monitor.csv`s
 under consideration.
 
 ### Submit a Job ###
-Submitting a job means packaging some agent up in a Docker container
-and asking the retro-contest server to officially evaluate it for the
-contest. The simplest agents take around an hour to finish
-evaluations. Furthermore, we can only run one of these at a time, so
-communicate your intentions to the group for scheduling purposes. If
-your agent beats our high score, then its performance becomes our new
-high score!
-1. [Evaluate your agent locally](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally). This
-   ensures there are no runtime bugs and you don't waste resources
-   uploading doomed agents to be evaluated.
-2. Run `$ submit_agent.py [--path PATH] name version`. The `name`
-   and `version` designate the tag for Docker container (
-   see
-   [here](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)).
-   This script looks for an existing container with that tag and
-   submits it for evaluation. If provided with `--path` it will also
-   build a new container automatically.
-3. You can check or change the status of your job at
-   the [jobs page](https://contest.openai.com/user/job).
+The leaderboard only ranks the _most recent_ result for your team, so
+this should only be done after careful testing and analysis. Ask
+Conrad to help you take an agent through these stages.
 
 ### Convert `.bk2` Files to `.mp4` Videos ###
 These steps require the `ffmpeg` application with `x264` support.

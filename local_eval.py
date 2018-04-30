@@ -22,12 +22,21 @@ def make_docker_tag(name, version):
   team_member_name = get_credentials()['TEAM_MEMBER_NAME']
   return '{}/{}:{}'.format(team_member_name, name, version)
 
+def split_pkg(path):
+  pkg_path, filename = os.path.split(os.path.abspath(path))
+  module_name, _ = os.path.splitext(filename)
+  return pkg_path, module_name
+
 def build_agent(path, docker_tag):
-  build_cmd = ['build', '-t', docker_tag, path]
+  pkg_path, module_name = split_pkg(path)
+  build_cmd = ['build', '-t', docker_tag, '-i', module_name, pkg_path]
   return retro_contest.docker.main(build_cmd)
 
-def test_agent(docker_tag, game, state, results_dir, timestep_limit):
+def test_agent(path, args, docker_tag, game, state, results_dir, timestep_limit):
+  pkg_path, module_name = split_pkg(path)
   run_cmd = ['run',
+             '--entry', 'python3 -u -m {}'.format(module_name),
+             '--args', ' --remote {}'.format(args),
              '--agent', docker_tag,
              '--results-dir', results_dir,
              '--timestep-limit', timestep_limit,
@@ -40,17 +49,18 @@ def evaluate(args):
   docker_tag = make_docker_tag(args.name, args.version)
   if args.path:
     build_agent(args.path, docker_tag)
-  return test_agent(docker_tag, args.game, args.state,
+  return test_agent(args.path, args.args, docker_tag, args.game, args.state,
                     args.results_dir, args.timestep_limit)
 
 def init_parser():
   parser = argparse.ArgumentParser(description="Build agent image and evaluate it locally")
+  parser.add_argument('path', type=str, help='Path to the agent python script')
   parser.add_argument('name', type=str, help='Name of agent')
   parser.add_argument('version', type=str, help='Version of agent')
   parser.add_argument('game', type=str, help='Name of the game that the agent will be evaluated on')
   parser.add_argument('state', type=str, help='Name of the game state that the agent will be evaluated on')
   parser.add_argument('timestep_limit', type=str, help='Number of timesteps considered during evaluation')
-  parser.add_argument('--path', type=str, help='Path to the agent python script')
+  parser.add_argument('--args', type=str, default='', help='Arguments to pass on to the agent python script')
   parser.add_argument('--results-dir','-r', type=str, default='results', help='Path to output results')
   return parser
 
