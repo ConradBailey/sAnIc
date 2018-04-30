@@ -275,7 +275,7 @@ the server.
 ### Analyze Results ###
 `local_eval.py` and `$ ./whateveragent.py --monitor` produce a file
 called `monitor.csv` (see step
-5 [here](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally)
+5 [here](https://gitlab.com/sAnIc-ND/sAnIc#simulate-an-agent-locally)
 for full details). This file is the key to statistical and graphical
 analysis. Run `$ analyze_monitor.py monitor_path "Title of
 Experiment"` to produce analytical output. This will leave four files
@@ -297,7 +297,7 @@ in the directory containing `monitor_path`.
 ### Evaluate an Agent On Many Tests ###
 Evaluating an agent
 on
-[one game locally](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally) can
+[one game locally](https://gitlab.com/sAnIc-ND/sAnIc#simulate-an-agent-locally) can
 be great for debugging, but it's not really what we need for
 analytics. In the classic data science framework we need to run our
 agents on test sets, and here's how.
@@ -359,7 +359,7 @@ These steps require the `ffmpeg` application with `x264` support.
 1. Make sure the `.bk2` file is **not** owned by `root`. This can be
    done to
    `local_eval.sh`
-   [produced results](https://gitlab.com/sAnIc-ND/sAnIc#evaluate-an-agent-locally) with
+   [produced results](https://gitlab.com/sAnIc-ND/sAnIc#simulate-an-agent-locally) with
    `$ sudo chown -R username:username results/bk2` (this is an
    example, your invocation may vary).
 2. Activate your virtual environment (see step
