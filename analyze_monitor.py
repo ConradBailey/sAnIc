@@ -84,7 +84,7 @@ def make_webpage(monitor_title, observed_stats):
 
 
 def analyze(args):
-  monitor_path = args.path
+  monitor_path = args.monitor_path
   out_dir, _ = os.path.split(monitor_path)
 
   monitor_title = args.experiment_name
