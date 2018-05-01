@@ -9,9 +9,9 @@ from envwrappers import HistoriedEnv, Sequence
 
 
 class JERK(agent.Agent):
-  def __init__(self, is_remote, game, state, max_timesteps, do_render, do_monitor,
+  def __init__(self, is_remote, game, state, max_timesteps, do_render, monitor_path,
                exploit_bias, jump_repeat, jump_prob, right_steps, left_steps):
-    super().__init__(is_remote, game, state, max_timesteps, HistoriedEnv, do_pause=do_render, do_render=do_render, do_monitor=do_monitor)
+    super().__init__(is_remote, game, state, max_timesteps, HistoriedEnv, do_render, monitor_path)
     self.sequences = []
     self.exploit_bias = exploit_bias
     self.jump_repeat = jump_repeat
