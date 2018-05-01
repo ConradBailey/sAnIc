@@ -24,8 +24,8 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 ## How To Do Stuff Relevant To This Project ##
 ### Table of Contents ###
 * [Assumptions](https://gitlab.com/sAnIc-ND/sAnIc#assumptions)
-* [Install the Virtual Environment](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)
 * [Contribute to the Project](https://gitlab.com/sAnIc-ND/sAnIc#contribute-to-the-project)
+* [Install the Virtual Environment](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)
 * [Work on the Website](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)
 * [Start a Jupyter Notebook in the Virtualenv](https://gitlab.com/sAnIc-ND/sAnIc#start-a-jupyter-notebook-in-the-virtualenv)
 * [Creating an Agent](https://gitlab.com/sAnIc-ND/sAnIc#creating-an-agent)
@@ -53,6 +53,97 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
   figure this out for your own environment, e.g. Ubuntu will need
   calls to `$ sudo apt-get install` or something.
 
+### Contribute to the Project ###
+Things can get really messy with dependencies and outside libraries
+and everything else. For that reason we will use pull requests to
+contribute work instead of straight pushes to the repo.
+1. [Fork](https://docs.gitlab.com/ee/gitlab-basics/fork-project.html) The Project
+   * Visit the [main project repo](https://gitlab.com/sAnIc-ND/sAnIc)
+     and click `Fork` just to the left and below the Sanic icon.
+   * This may give you a list of entities to fork it with, if so then
+     click the entity representing your personal account.
+   * This should create new repo just like the original, but owned by
+     you, and it should have taken you to that repo's main page. If
+     not try to find the new repo in your account's list of
+     repositories.
+   * Now clone this repository of yours onto your local machine with
+     the link provided just below the icon.
+2. Add an Upstream [Remote](https://www.atlassian.com/git/tutorials/syncing)
+   * Adding this allows you to stay up to date by fetching code from
+     the main project repo and merging it into your forked repo
+   * `cd` to your local copy of the forked repo and run  
+   `$ git remote add upstream https://gitlab.com/sAnIc-ND/sAnIc.git`.
+3. Update the Fork
+   * Make sure you're on the `master` branch with `git status`, then
+     run `$ git pull upstream master`. This will perform the fetch and
+     merge operations. Unless you're developing on `master` (**at your
+     own risk**) there should not be any merge conflicts.
+4. Make a [Branch](https://www.atlassian.com/git/tutorials/using-branches)
+   * Make a branch to do your work in. Your branch should be named
+     after the work done on it, like a feature or bug fix.
+   * `cd` to your local copy of your forked repo. Run  
+     `$ git checkout -b Name_of_Branch upstream/master`.
+5. Do the Work
+   * Do whatever work you want to do. Make an agent with a new
+	 algorithm. Do new visualizations or analytics for an old
+	 agent. [Work on the website](https://gitlab.com/sAnIc-ND/sAnIc#work-on-the-website). Whatever!
+6. Stage Your Changes
+   * Stage your changes using calls to `git add` and `git rm` if necessary.
+7. Commit Your Changes
+   * Commit your changes with `git commit`. Go back to step 5 afterwards
+	 if you're splitting the work into multiple commits.
+8. Check for Updates One Last Time
+   * Run `$ git fetch upstream master`. This will retrieve any new
+     code from upstream, but it won't really do anything with it.
+   * Run `$ git rebase upstream/master Name_of_Branch` or
+     whatever. This takes your work and sort of re-does it all on top
+     of the most up to date code. That way it is easier to merge into
+     the main project!
+9. Push Your Changes
+   * Push your changes to your personal repo with `$ git push
+	 origin`. This will add a branch named `Name_of_Branch` or whatever
+	 to your fork on GitLab. This branch is accessible through the
+	 `Branches` link in the `Repository` menu on the left side of the
+	 main page for your fork on GitLab.
+10. Create a [Merge Request](https://docs.gitlab.com/ee/gitlab-basics/add-merge-request.html)
+    * If everything looks good to you on the branch then it's time to
+      start merging it into the main repo
+    * Visit
+      the
+      [main project page](https://docs.gitlab.com/ee/gitlab-basics/add-merge-request.html) and
+      click on the `+` icon below and to the right of the sAnIc icon,
+      then press `New merge request`. This should take you to a page
+      for merge request creation with boxes for `Source branch` and
+      `Target branch`.
+    * Under `Source branch` the `Source project` on the left should
+      read `YourUsername/sAnIc` and the `Source branch` should select
+      `Name_of_Branch` or whatever. Under `Target branch` the `Target
+      project` on the left should read `sAnIc-ND/sAnIc` and the `Target
+      branch` should be `master`. Assuming that is all true, click
+      `Compare branches and continue` in the bottom left.
+    * On this page make sure the title is clear and give a description
+      of the work. Try to be very thorough. The merges need to be
+      reviewed so let the reviewer know all of the information that
+      they might find useful about what you're trying to
+      contribute. Use good formatting too; the description box supports
+      Markdown.
+    * Do not assign the merge to anyone
+    * You can check `Remove source branch when merge request is
+      accepted.` if you'd like the branch you pushed to `origin`
+      deleted from GitLab.
+    * Press `Submit merge request`
+11. Merge Review
+	* If upon review your work needs any modifications, perform them
+	  on your local machine, stage, commit, update, and push them just
+	  as before, but **do not** make another merge request. The
+	  original merge request will be updated with your new
+	  commits. The reviewer should help you through this process.
+12. Eventually your work will be merged. You should go back to the
+    local clone of your fork, checkout the `master` branch, and pull
+    from upstream again (step 3). You're now free to delete
+    `Name_of_Branch` or whatever with `$ git branch -d Name_of_Branch`
+    or whatever.
+
 ### Install the Virtual Environment ###
 1. Acquire the ROMs from Conrad. We cannot put these in a public repo;
    they are proprietary. On that note, **DO NOT COMMIT/PUSH THESE TO
@@ -70,28 +161,6 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
    be local to this virtualenv and can be cleanly swept away with `rm
    -r venv`. To get out of this environment when you're done working
    on the project run `deactivate`, it's that simple.
-
-### Contribute to the Project ###
-Things can get really messy with dependencies and outside libraries
-and everything else. For that reason we will use pull requests to
-contribute work instead of straight pushes to the repo.
-1. [Fork](https://docs.gitlab.com/ee/gitlab-basics/fork-project.html) the
-   project from the group repo.
-2. You should
-   probably
-   [make a branch](https://www.atlassian.com/git/tutorials/using-branches) to
-   do your work in.
-3. Do whatever work you want to do. Make an agent with a new
-   algorithm. Do new visualizations or analytics for an old
-   agent. [Work on the website](https://gitlab.com/sAnIc-ND/sAnIc#work-on-the-website). Whatever!
-3. Make sure you've committed everything you want and push the branch
-   to your own forked repo,
-   then
-   [create a merge request](https://docs.gitlab.com/ee/gitlab-basics/add-merge-request.html) with
-   the main repo. The group can review your changes and merge them
-   when they're ready. We're messing with large amounts of data,
-   sensitive data, large files, and a somewhat complicated dev
-   environment, so this is a necessary sanity check.
 
 ### Work on the Website ###
 All of the website files are found in the `public` directory.
