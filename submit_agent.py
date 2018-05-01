@@ -37,7 +37,7 @@ def submit(args):
   return 0
 
 def init_parser():
-  parser = argparse.ArgumentParser(description="Submit an agent image for contest evaluation")
+  parser = argparse.ArgumentParser(description="Submit an agent container for contest evaluation")
   parser.add_argument('name', type=str, help='Name of agent')
   parser.add_argument('version', type=str, help='Version of agent')
   parser.add_argument('--path','-p', type=str, help='Path to the agent python script')

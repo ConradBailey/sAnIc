@@ -1,5 +1,4 @@
 # sAnIc #
-
 This repository holds our work for
 the [OpenAI Retro Contest](https://contest.openai.com/). If you're a
 team member looking for information about working on the project,
@@ -23,6 +22,7 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 
 ## How To Do Stuff Relevant To This Project ##
 ### Table of Contents ###
+* [Vocabulary](https://gitlab.com/sAnIc-ND/sAnIc#vocabulary)
 * [Assumptions](https://gitlab.com/sAnIc-ND/sAnIc#assumptions)
 * [Contribute to the Project](https://gitlab.com/sAnIc-ND/sAnIc#contribute-to-the-project)
 * [Install the Virtual Environment](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)
@@ -36,6 +36,99 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 * [Submit a Job](https://gitlab.com/sAnIc-ND/sAnIc#submit-a-job)
 * [Convert `.bk2` Files to `.mp4` Videos](https://gitlab.com/sAnIc-ND/sAnIc#convert-bk2-files-to-mp4-videos)
 * [Resources](https://gitlab.com/sAnIc-ND/sAnIc#resources)
+
+### Vocabulary ###
+There are some novel elements to this project so a decisive vocabulary
+is necessary for effective communication and cohesive code.
+
+**NOTE**: These definitions are our own; other documentation often has
+inconsistent vocabularies. This vocabulary is generally in alignment
+with
+the
+[white paper](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/retro-contest/gotta_learn_fast_report.pdf) for
+the contest.
+* **Environment**: An object instance returned from a call to
+  `retro_contest.local.make` for local environments,
+  `gym_remote.client.RemoteEnv` for remote environments, or some
+  wrapper. This object handles the game simulation and provides the
+  interface to it through methods like `.reset()`, `.step()`,
+  `.render()`, and others. A _remote_ environment is created and
+  managed by a Docker container in the background; this is done when
+  submitting an agent to the contest or simulating an agent
+  submission. A _local_ environment is created and managed by the
+  agent itself.
+* **Episode**: One attempt at completing a level. An **episode** ends
+  when the player dies, completes the level, or runs out of timesteps
+  (4500). This is signalled in the `done` value returned by
+  `environment.step()`. An episode begins with a call to
+  `environment.reset()` which should only be called immediately after
+  environment creation or when `done` is `True`.
+* **Agent**: A script that simulates episode after episode of some
+  level for some number of timesteps. If the agent uses a local
+  environment then it is responsible for setting and abiding by the
+  timestep limit and outputting a `monitor.csv`. If the agent uses a
+  remote environment, then it doesn't need to worry about the timestep
+  limit; it can operate as though it's running infinitely and silently
+  while the limit and `monitor.csv` output is taken care of remotely.
+* **State**: Imagine the common understanding of _level_ in the
+  context of videogames. Example: `Green Hill Zone - Act 1` is the
+  first state of the game `Sonic The Hedgehog`. The begin far on the
+  left and are considered complete when some horizontal displacement
+  is achieved.
+* **Game**: A collection of levels and control definitions. These are
+  implemented via ROMs that are copied directly from the original game
+  cartridges. For instance: `Sonic The Hedgehog 2` has
+  a [Spin Dash](http://sonic.wikia.com/wiki/Spin_Dash) move, but
+  `Sonic The Hedgehog` does not.
+* **Trial**: A trial is defined by an agent, a level, and a timestep
+  limit. During a trial the agent will simulate play in that level,
+  restarting as necessary, until the timestep limit is reached.
+* **Timestep**: The smallest unit of time in a simulation. A timestep
+  occurs when some action is passed to `environment.step()`; the
+  action is enacted for four real game frames (+/- 1) during one
+  timestep. One timestep is approx. 1/15 of a second of wall-clock
+  time in the game, so the episode limit of 4500 timesteps is approx 5
+  minutes of real gameplay.
+* **Test Set**: A list of game-state tuples for the purposes of
+  experiments and testing in general.
+* **Experiment**: An experiment should be designed to explore the
+  behavior of a range of values for a single parameter of an agent. An
+  experiment requires an agent, values for the static parameters of
+  that agent, a range of values for the dynamic variable of that
+  agent, a test set, a trial limit, and a timestep limit. An
+  experiment will run trials according to the timestep limit until the
+  trial limit is exceeded for every value in the dynamic variable
+  range and for every level in the test set (think nested loops).
+* **Observation**: The graphical data of a frame. This is the first
+  element in the tuple returned by a call to `environment.step()`. It
+  is a 320x224x3 array of RGB pixel data.
+* **Action**: An 12 element array of binary values (0/1 or
+  `True`/`False`) corresponding to buttons on a Sega Genesis
+  controller such that ON means pressed and vice versa. The mapping of
+  index to button is
+  `{0: JUMP, 1: JUMP, 2: (ignored), 3: (ignored), 4: UP, 5: DOWN, 6: LEFT, 7: RIGHT, 8: JUMP, 9: (ignored), 10: (ignored), 11: (ignored)}`
+  (_Sonic_ does not make use of all the buttons, and there are redundancies for jumping).
+  An action is performed by passing as an argument to
+  `environment.step()`.
+* **Action Space**: The set of possible actions to take in an environment.
+* **Reward**: After every action (a.k.a. call to `environment.step()`,
+  a reward for the action is presented by the environment as the
+  second item in the tuple return from `environment.step()`. This
+  magnitude of this reward is proportional to the horizontal
+  displacement achieved by the action and positive if to the right and
+  negative if to the left.
+* **Score**: Every episode is given a score at the end. This score is
+  the sum total of all the rewards from the actions that took place
+  during the episode (max 9000) plus a bonus for speed (theoretical
+  max 1000). Every trial is given a score which is the mean of the
+  scores of all the episodes that completed. The contest evaluation
+  system awards an agent a total score which is the mean of the
+  episode scores for every level it tests.
+* **Container / Image**: See
+  this
+  [Stack Overflow post](https://stackoverflow.com/questions/21498832/in-docker-whats-the-difference-between-a-container-and-an-image). In
+  this documentation "container" is used exclusively and probably not
+  precisely. It's not that important for our purposes.
 
 ### Assumptions ###
 * You're keeping everything for the project in a directory called
