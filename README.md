@@ -208,13 +208,10 @@ contribute work instead of straight pushes to the repo.
 10. Create a [Merge Request](https://docs.gitlab.com/ee/gitlab-basics/add-merge-request.html)
     * If everything looks good to you on the branch then it's time to
       start merging it into the main repo
-    * Visit
-      the
-      [main project page](https://docs.gitlab.com/ee/gitlab-basics/add-merge-request.html) and
-      click on the `+` icon below and to the right of the sAnIc icon,
-      then press `New merge request`. This should take you to a page
-      for merge request creation with boxes for `Source branch` and
-      `Target branch`.
+    * Visit the GitLab page for your forked repo and click on the `+`
+      icon below and to the right of the sAnIc icon, then press `New
+      merge request`. This should take you to a page for merge request
+      creation with boxes for `Source branch` and `Target branch`.
     * Under `Source branch` the `Source project` on the left should
       read `YourUsername/sAnIc` and the `Source branch` should select
       `Name_of_Branch` or whatever. Under `Target branch` the `Target
