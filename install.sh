@@ -21,7 +21,7 @@ USAGE="Usage: $PROG_NAME [ROM Directory]"
 PYTHON=python3.6
 PIP=pip3.6
 
-REQUIRED_BINS="$PIP $PYTHON grep virtualenv git"
+REQUIRED_BINS="$PIP $PYTHON grep virtualenv git parallel"
 REQUIRED_PIP_PKGS="gym-retro \
                    ipykernel \
 									 numpy \
