@@ -119,7 +119,7 @@ def main(argv=sys.argv[1:]):
   parser = init_parser()
   args = parser.parse_args(argv)
 
-  if (len(args.experiments) % 2) != 0:
+  if (len(args.monitors) % 2) != 0:
     raise ValueError("Odd number of monitor args detected. Every title requires a monitor.csv path")
 
   sys.exit(compare(args.output_dir, args.comparison_name,
