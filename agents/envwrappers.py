@@ -6,7 +6,7 @@ import numpy as np
 # Add some more useful information and tracking to the environment
 # object. Use this as a basis for other wrappers.
 class BasicEnv(gym.Wrapper):
-  def __init__(self, env, max_timesteps, do_pause=False, do_render=False, do_monitor=False):
+  def __init__(self, env, max_timesteps, do_render, monitor_path):
     super().__init__(env)
     self.episode_reward = 0
     self.episode_timesteps = 0
@@ -14,10 +14,10 @@ class BasicEnv(gym.Wrapper):
     self.trial_timesteps = 0
     self.num_episodes = 0
     self.max_timesteps = max_timesteps
-    self.do_pause = do_pause
+    self.do_pause = do_render
     self.do_render = do_render
-    if do_monitor:
-      self.monitor = open('monitor.csv','w')
+    if monitor_path:
+      self.monitor = open(monitor_path,'w')
       self.monitor.write('r,l,t\n')
       self.episode_startt = time()
     else:

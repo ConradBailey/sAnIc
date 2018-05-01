@@ -6,8 +6,8 @@ import agent
 from envwrappers import BasicEnv
 
 class Example(agent.Agent):
-  def __init__(self, is_remote, game, state, max_timesteps, do_render, do_monitor):
-    super().__init__(is_remote, game, state, max_timesteps, BasicEnv, do_pause=do_render, do_render=do_render, do_monitor=do_monitor)
+  def __init__(self, is_remote, game, state, max_timesteps, do_render, monitor_path):
+    super().__init__(is_remote, game, state, max_timesteps, BasicEnv, do_render, monitor_path)
 
   def play(self):
     self.env.reset()
