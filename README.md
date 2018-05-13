@@ -1,12 +1,6 @@
 # sAnIc #
 This repository holds our work for
-the [OpenAI Retro Contest](https://contest.openai.com/). If you're a
-team member looking for information about working on the project,
-visit
-the
-[How To](https://gitlab.com/sAnIc-ND/sAnIc#how-to-do-stuff-relevant-to-this-project) section. If
-you are a visitor looking for information about our work, visit
-the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
+the [OpenAI Retro Contest](https://contest.openai.com/).
 
 #### Dependencies ####
 * [python 3.6](https://www.python.org/downloads/)
@@ -30,7 +24,6 @@ the [project website](https://sanic-nd.gitlab.io/sAnIc/)!
 * [Assumptions](https://gitlab.com/sAnIc-ND/sAnIc#assumptions)
 * [Contribute to the Project](https://gitlab.com/sAnIc-ND/sAnIc#contribute-to-the-project)
 * [Install the Virtual Environment](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)
-* [Work on the Website](https://gitlab.com/sAnIc-ND/sAnIc#install-the-virtual-environment)
 * [Start a Jupyter Notebook in the Virtualenv](https://gitlab.com/sAnIc-ND/sAnIc#start-a-jupyter-notebook-in-the-virtualenv)
 * [Creating an Agent](https://gitlab.com/sAnIc-ND/sAnIc#creating-an-agent)
 * [Simulate an Agent Locally](https://gitlab.com/sAnIc-ND/sAnIc#simulate-an-agent-locally)
@@ -186,7 +179,7 @@ contribute work instead of straight pushes to the repo.
 5. Do the Work
    * Do whatever work you want to do. Make an agent with a new
 	 algorithm. Do new visualizations or analytics for an old
-	 agent. [Work on the website](https://gitlab.com/sAnIc-ND/sAnIc#work-on-the-website). Whatever!
+	 agent. Whatever!
 6. Stage Your Changes
    * Stage your changes using calls to `git add` and `git rm` if necessary.
 7. Commit Your Changes
@@ -258,20 +251,6 @@ contribute work instead of straight pushes to the repo.
    be local to this virtualenv and can be cleanly swept away with `rm
    -r venv`. To get out of this environment when you're done working
    on the project run `deactivate`, it's that simple.
-
-### Work on the Website ###
-All of the website files are found in the `public` directory.
-0. Consider using the branch and merge workflow
-   from
-   [Contributing to the Project](https://gitlab.com/sAnIc-ND/sAnIc#contribute-to-the-project).
-1. Edit, add, or delete files in `public`
-2. Test your changes locally, i.e. review your changes in your browser
-3. Commit and push your changes. A pipeline will run that publishes
-   your changes. When that has completed you can review the published
-   changes on at your local copy of the website,
-   `https://yourusername.gitlab.io/sAnIc/`.
-4. When you're happy with your changes create a merge request (see
-   [here](https://gitlab.com/sAnIc-ND/sAnIc#contribute-to-the-project)).
 
 ### Start a Jupyter Notebook in the Virtualenv ###
 Jupyter notebooks are good for data analysis because you can re-run
